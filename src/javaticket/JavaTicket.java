@@ -14,7 +14,8 @@ public class JavaTicket {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        
+        //Logica para abrir la ventana de inicio
     }
     
 }
