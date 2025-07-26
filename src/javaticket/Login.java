@@ -53,7 +53,7 @@ public class Login extends JFrame {
         //Action Listeners
         submit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (!Contra.getText().equals("") && !Usuario.getText().equals("")) {
+                if (revisar()) {
                     System.out.println("Entro");
                     
                     if (manejo.logearse(Usuario.getText(), Contra.getText()))
@@ -65,8 +65,8 @@ public class Login extends JFrame {
                     else
                     {
                     JOptionPane.showMessageDialog(null, "Acceso denegado");
-                    }
-                } else if (Contra.getText().equals("") || Usuario.getText().equals("")) {
+                    } 
+                } else if (!revisar()) {
                     JOptionPane.showMessageDialog(null, "ERROR:Ocupas llenar todos los datos necesarios");
                 }
                 
@@ -75,6 +75,18 @@ public class Login extends JFrame {
 
         setVisible(true);
 
+    }
+    
+    public boolean revisar()
+    {
+        if (!Contra.getText().equals("") && !Usuario.getText().equals(""))
+        {
+        return true;
+        }
+        
+    
+        
+    return false;
     }
 
     

@@ -12,6 +12,8 @@ import java.util.ArrayList;
 
 public class ManejoDeUsuarios {
     
+    //Funciones que tiene crearUsuario()|verificarContra()|verificarUsername()|logearse()|buscarU()|
+    
     public static ArrayList<UsuarioTemplate> usuarios;
     public static UsuarioTemplate userLogged = null;
     public ManejoDeUsuarios()
@@ -31,7 +33,7 @@ public class ManejoDeUsuarios {
     return false;
     }
     
-    public boolean verificarContra(String contra) {
+    private boolean verificarContra(String contra) {
         
         System.out.println(contra.length());
         if (contra.length() >= 8
@@ -45,7 +47,7 @@ public class ManejoDeUsuarios {
         return false;
     }
     
-    public boolean verificarUsername(String username)
+    private boolean verificarUsername(String username)
     {
     for (UsuarioTemplate usuario:usuarios)
     {
