@@ -10,9 +10,9 @@ package javaticket;
  */
 public class Deportivo extends categorias {
     //Funciones getCodigo()|getTitulo()|getFecha()|getCosto()
-    String equipo1;
-    String equipo2;
-    String tipo;
+    private String equipo1;
+    private String equipo2;
+    private String tipo;
     public Deportivo(int codigo, String titulo, String descripcion, String fecha, double costo,String equipo1 , String equipo2 , String tipo) 
     {
     super(codigo,titulo,descripcion,fecha,costo);
@@ -20,5 +20,22 @@ public class Deportivo extends categorias {
     this.equipo2 = equipo2;
     this.tipo = tipo;
     }
+    
+    public String getEquipo1()
+    {
+    return this.equipo1;
+    }
+    
+    public String getEquipo2()
+    {
+    return this.equipo2;
+    }
+    
+    public String getTipoDeporte()
+    {
+    return this.tipo;
+    }
+    
+    
     
 }

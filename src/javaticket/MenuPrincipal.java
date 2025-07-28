@@ -23,7 +23,7 @@ public class MenuPrincipal extends JFrame{
         this.manejo = manejo;
         
         setSize(500, 500);
-        setTitle("Login");
+        setTitle("Menu Principal");
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
