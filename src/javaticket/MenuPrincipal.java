@@ -18,9 +18,11 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 public class MenuPrincipal extends JFrame{
     private JButton Eventos,Usuarios,Reportes;
     ManejoDeUsuarios manejo;
+    ManejoDeEventos eventos;
 
-    public MenuPrincipal(ManejoDeUsuarios manejo) {
+    public MenuPrincipal(ManejoDeUsuarios manejo,ManejoDeEventos eventos ) {
         this.manejo = manejo;
+        this.eventos = eventos;
         
         setSize(500, 500);
         setTitle("Menu Principal");

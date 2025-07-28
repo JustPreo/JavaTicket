@@ -10,11 +10,11 @@ package javaticket;
  */
 public class categorias {
 
-    int codigo;
-    String titulo;
-    String descripcion;
-    String fecha;
-    double costo;
+    private int codigo;
+    private String titulo;
+    private String descripcion;
+    private String fecha;
+    private double costo;
 
     public categorias(int codigo, String titulo, String descripcion, String fecha, double costo) {
         this.codigo = codigo;

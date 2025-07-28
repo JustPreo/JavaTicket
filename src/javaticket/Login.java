@@ -19,8 +19,10 @@ public class Login extends JFrame {
     private JLabel UsuarioI, ContraI, Titulo;
     private JTextField Usuario, Contra;
     ManejoDeUsuarios manejo;
-    public Login(ManejoDeUsuarios manejo) {
+    ManejoDeEventos eventos;
+    public Login(ManejoDeUsuarios manejo,ManejoDeEventos eventos) {
         this.manejo = manejo;
+        this.eventos = eventos;
         setSize(500, 500);
         setTitle("Login");
         setResizable(false);
@@ -59,7 +61,7 @@ public class Login extends JFrame {
                     if (manejo.logearse(Usuario.getText(), Contra.getText()))
                     {
                     JOptionPane.showMessageDialog(null, "Logueado correctamente");
-                    MenuPrincipal menu = new MenuPrincipal(manejo);
+                    MenuPrincipal menu = new MenuPrincipal(manejo,eventos);
                     dispose();
                     }
                     else
