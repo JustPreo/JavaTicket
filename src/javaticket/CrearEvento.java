@@ -20,6 +20,7 @@ public class CrearEvento extends JFrame {
     private JLabel codigoT, nombreT, descripcionT, fechaT, costoT;
     private JTextField codigo, nombre, descripcion, fecha, costo;
     private JButton crear;
+    private JComboBox<String> c2;
     ManejoDeEventos eventos;
 
     public CrearEvento(ManejoDeUsuarios manejo, ManejoDeEventos eventos) {
@@ -32,6 +33,38 @@ public class CrearEvento extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(null);
         getContentPane().setBackground(Color.cyan);
+
+        //LOGICA COMBOBOX
+        String[] categorias = {"", "Deportivo", "Musical", "Religioso"};
+
+        JComboBox<String> c1 = new JComboBox<>(categorias);
+        c1.setBounds(160, 300, 150, 35);
+        add(c1);
+
+        c1.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                String item = c1.getSelectedItem().toString();
+                System.out.println(item);
+
+                switch (item) {
+                    case "Deportivo":
+                        crearCOMBO(1);
+                        break;
+                    case "Musical":
+                        crearCOMBO(2);
+                        break;
+                    case "Religioso":
+                        crearCOMBO(3);
+                        break;
+                    default:
+                        crearCOMBO(3);
+                        eliminarCombo();
+                        break;
+
+                }
+            }
+        });
 
         crear = new JButton("Crear");
         crear.setBounds(180, 280, 100, 50);
@@ -84,6 +117,44 @@ public class CrearEvento extends JFrame {
             }
         });
         setVisible(true);
+    }
+
+    public void crearCOMBO(int numero) {
+        eliminarCombo();
+        String[] deportivo = {"Futbol", "Tenis", "Rugby", "Baseball"};
+        String[] musical = {"Pop", "Rock", "Rap", "Clasica", "Reggeaton", "Otro"};
+
+        switch (numero) {
+
+            case 1:
+                c2 = new JComboBox<>(deportivo);
+                break;
+
+            case 2:
+                c2 = new JComboBox<>(musical);
+                break;
+
+            default:
+                System.out.println("A");
+                break;
+
+        }
+
+        if (c2 != null) {
+            c2.setBounds(160, 400, 150, 35);
+            add(c2);
+            repaint();
+        }
+
+    }
+
+    public void eliminarCombo() {
+        if (c2 != null) {
+            remove(c2);
+            c2 = null;
+            repaint();
+        }
+
     }
 
     public static void main(String[] args) {
