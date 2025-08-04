@@ -4,6 +4,8 @@
  */
 package javaticket;
 
+import javaticket.Manejo.ManejoDeUsuarios;
+import javaticket.Manejo.ManejoDeEventos;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

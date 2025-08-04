@@ -4,6 +4,9 @@
  */
 package javaticket;
 
+import javaticket.Manejo.ManejoDeUsuarios;
+import javaticket.Manejo.ManejoDeEventos;
+
 /**
  *
  * @author user

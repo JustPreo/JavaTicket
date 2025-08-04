@@ -2,8 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package javaticket;
+package javaticket.Manejo;
 import java.util.ArrayList;
+import java.util.Calendar;
+import javaticket.Categorias.categorias;
+import javaticket.Usuarios.Administrador;
+import javaticket.Usuarios.Contenidos;
+import javaticket.Usuarios.UsuarioTemplate;
 
 /**
  *
@@ -16,17 +21,18 @@ public class ManejoDeUsuarios {
     
     public static ArrayList<UsuarioTemplate> usuarios;
     public static UsuarioTemplate userLogged = null;
+    public static Calendar fechaActual = null;
     public ManejoDeUsuarios()
     {
     usuarios = new ArrayList<UsuarioTemplate>();
-    usuarios.add(new UsuarioTemplate("admin","admin","supersecreto",69,0));  //0,1,2 (0 = Administrador , 1 = Contenidos , 2 = Limitado)
+    usuarios.add(new Administrador("admin","admin","supersecreto",69));
     }
     
-    public boolean crearUsuario(String nombre , String username , String password , int edad , int tipoU)
+    public boolean crearUsuario(String nombre , String username , String password , int edad)
     {
         if (verificarContra(password) && verificarUsername(username))
         {
-        usuarios.add(new UsuarioTemplate(nombre,username,password,edad,tipoU));
+        usuarios.add(new UsuarioTemplate(nombre,username,password,edad));
         return true;
         }
     
@@ -85,5 +91,13 @@ public class ManejoDeUsuarios {
     
     return null;
     }
+    
+    public void agregarArray(categorias evento) {
+    if (userLogged instanceof Administrador) {
+        ((Administrador) userLogged).agregarEvento(evento);
+    } else if (userLogged instanceof Contenidos) {
+        ((Contenidos) userLogged).agregarEvento(evento);
+    }
+}
 }
 

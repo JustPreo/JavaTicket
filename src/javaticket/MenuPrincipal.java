@@ -4,6 +4,9 @@
  */
 package javaticket;
 
+import javaticket.Manejo.ManejoDeUsuarios;
+import javaticket.Manejo.ManejoDeEventos;
+import javaticket.AdministradorEventos.AdministrarEventos;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,7 +52,8 @@ public class MenuPrincipal extends JFrame{
         
         Eventos.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.exit(0); // cerrar programa
+                new AdministrarEventos(manejo, eventos);
+                dispose();
             }
         });
         

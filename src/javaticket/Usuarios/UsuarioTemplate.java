@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package javaticket;
+package javaticket.Usuarios;
 
 /**
  *
@@ -14,14 +14,14 @@ public class UsuarioTemplate {
     private String username;
     private String password;
     private int edad;
-    private int tipoU; //0,1,2 (0 = Administrador , 1 = Contenidos , 2 = Limitado)
+    //0,1,2 (0 = Administrador , 1 = Contenidos , 2 = Limitado)
 
-    public UsuarioTemplate(String nombre, String username, String password, int edad, int tipoU) {
+    public UsuarioTemplate(String nombre, String username, String password, int edad) {
         this.nombre = nombre;
         this.username = username;
         this.password = password;
         this.edad = edad;
-        this.tipoU = tipoU;
+        
     }
 
     public String getNombre() {
@@ -44,8 +44,5 @@ public class UsuarioTemplate {
     return edad;
     }
     
-    public int getAcceso()
-    {
-    return tipoU;
-    }
+    
 }
