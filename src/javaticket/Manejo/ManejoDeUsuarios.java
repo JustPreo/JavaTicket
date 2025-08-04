@@ -95,8 +95,10 @@ public class ManejoDeUsuarios {
     public void agregarArray(categorias evento) {
     if (userLogged instanceof Administrador) {
         ((Administrador) userLogged).agregarEvento(evento);
+        System.out.println("A");
     } else if (userLogged instanceof Contenidos) {
         ((Contenidos) userLogged).agregarEvento(evento);
+        System.out.println("A");
     }
 }
 }

@@ -121,7 +121,7 @@ public class EliminarEvento extends JFrame {
 
             String mensaje = "Evento cancelado correctamente.";
             if (indemnizacion > 0) {
-                mensaje += String.format("\nSe cobrará indemnización del 50%%: Lps %.2f", indemnizacion);
+                mensaje += String.format("\nSe cobrara Indemnizacion del 50%%: Lps %.2f", indemnizacion);
             } else {
                 mensaje += "\nNo hay indemnización que cobrar.";
             }
