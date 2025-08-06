@@ -72,7 +72,8 @@ public class AdministrarEventos extends JFrame {
 
         Editar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.exit(0); // cerrar programa
+                EditarEvento editar = new EditarEvento(manejo,eventos);
+                dispose();
             }
         });
 

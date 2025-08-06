@@ -174,14 +174,14 @@ public class CrearEvento extends JFrame {
 
             switch (tipoEvento) {
                 case "Deportivo":
-                    if (!validarDeporte(subtipo)) {
+                    if (!validarDeporte(subtipo)) {//Por si acaso
                         JOptionPane.showMessageDialog(this, "Tipo de deporte no válido");
                         return false;
                     }
                     evento = new Deportivo(cod, nom, desc, fechaStr, costoD, subtipo, "Equipo A", "Equipo B");
                     break;
                 case "Musical":
-                    if (!validarMusica(subtipo)) {
+                    if (!validarMusica(subtipo)) {//Por si acaso
                         JOptionPane.showMessageDialog(this, "Tipo de música no válido");
                         return false;
                     }
@@ -201,7 +201,7 @@ public class CrearEvento extends JFrame {
                 limpiarCampos();
                 return true;
             } else {
-                //JOptionPane.showMessageDialog(this, "Error: código duplicado o evento no válido");
+                //JOptionPane.showMessageDialog(this, "Error: codigo duplicado o evento no válido");
                 return false;
             }
 
@@ -233,7 +233,7 @@ public class CrearEvento extends JFrame {
                 && !descripcion.getText().isEmpty()
                 && fechaS.getDate() != null
                 && !costo.getText().isEmpty()
-                && c1.getSelectedIndex() > 0;
+                && c1.getSelectedIndex() > 0; //Porque el 0 es vacio , osea el nulo
     }
 
     private void limpiarCampos() {

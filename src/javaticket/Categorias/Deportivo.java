@@ -3,11 +3,16 @@ package javaticket.Categorias;
 import javaticket.Categorias.categorias;
 
 public class Deportivo extends categorias {
+    
 
     private String tipoDeporte;  // String
     private final int capacidadMaxima = 20000;
     private String equipo1;
     private String equipo2;
+    /*
+    DEPORTIVO - LISTADO DE JUGADORES POR CADA EQUIPO (2 ARRAYS ENTONCES)
+        
+    */
 
     public Deportivo(int codigo, String titulo, String descripcion, String fecha, double costo,
                      String tipoDeporte, String equipo1, String equipo2) {

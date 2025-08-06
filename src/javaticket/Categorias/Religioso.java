@@ -3,6 +3,9 @@ package javaticket.Categorias;
 import javaticket.Categorias.categorias;
 
 public class Religioso extends categorias {
+    /*
+    RELIGIOSO - LA CANTIDAD DE LAS PERSONAS CONVERTIDAS ESA NOCHE
+    */
 
     private final int capacidadMaxima = 30000;
     private final double seguroFijo = 2000.0;

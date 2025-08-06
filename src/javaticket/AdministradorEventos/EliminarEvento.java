@@ -107,7 +107,11 @@ public class EliminarEvento extends JFrame {
             Date hoy = new Date();
 
             long diffMs = fechaEvento.getTime() - hoy.getTime();
+            System.out.println(diffMs);
             long diffDias = diffMs / (1000 * 60 * 60 * 24);
+            System.out.println(diffDias);
+            
+            
 
             double indemnizacion = 0.0;
 

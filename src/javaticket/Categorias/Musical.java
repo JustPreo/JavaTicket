@@ -4,12 +4,16 @@ import javaticket.Categorias.categorias;
 
 public class Musical extends categorias {
 
+    /*
+    MUSICAL - LOS NOMBRES DE TODAS LAS PERSONAS QUE CONFORMAR 
+    EL EQUIPO QUE MONTA TODO.
+     */
     private String tipoMusica; // String
     private final int capacidadMaxima = 25000;
-    private final double seguroGrama = 0.3;
+    private final double seguroGrama = 0.3; // Porcentaje
 
     public Musical(int codigo, String titulo, String descripcion, String fecha, double costo,
-                   String tipoMusica) {
+            String tipoMusica) {
         super(codigo, titulo, descripcion, fecha, costo);
         this.tipoMusica = tipoMusica;
     }
