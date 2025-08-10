@@ -16,6 +16,7 @@ public class CrearUsuario extends JFrame {
 
     // Enum para tipos de usuario
     public enum TipoUsuario {
+        Seleccionar,
         ADMINISTRATIVO,
         CONTENIDO,
         LIMITADO
@@ -82,15 +83,16 @@ public class CrearUsuario extends JFrame {
         add(tipoCB);
 
         crearBtn = new JButton("Crear Usuario");
-        crearBtn.setBounds(120, 300, 150, 40);
+        crearBtn.setBounds(160, 300, 150, 40);
         add(crearBtn);
 
         volverBtn = new JButton("Volver");
-        volverBtn.setBounds(10, 10, 80, 30);
+        volverBtn.setBounds(160, 360, 150, 40);
         add(volverBtn);
 
         volverBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+
                 dispose();
             }
         });
@@ -98,10 +100,24 @@ public class CrearUsuario extends JFrame {
         crearBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 CrearU();
+
             }
         });
 
         setVisible(true);
+    }
+
+    private void limpiarCampos() {
+        /*
+        private JTextField nombreTF, usernameTF, edadTF;
+        private JPasswordField passwordPF;
+         */
+
+        nombreTF.setText("");
+        usernameTF.setText("");
+        edadTF.setText("");
+        passwordPF.setText("");
+        tipoCB.setSelectedItem("Seleccionar");
     }
 
     public void CrearU() {
@@ -116,14 +132,23 @@ public class CrearUsuario extends JFrame {
             switch (tipo)//Probando con enums
             {
                 case ADMINISTRATIVO:
-                    manejo.crearUsuario(nombre, username, password, edad, tipoStr);
+                    if (manejo.crearUsuario(nombre, username, password, edad, tipoStr)) {
+                        limpiarCampos();
+                    }
                     break;
                 case CONTENIDO:
-                    manejo.crearUsuario(nombre, username, password, edad, tipoStr);
+                    if (manejo.crearUsuario(nombre, username, password, edad, tipoStr)) {
+                        limpiarCampos();
+                    }
                     break;
                 case LIMITADO:
-                    manejo.crearUsuario(nombre, username, password, edad, tipoStr);
+                    if (manejo.crearUsuario(nombre, username, password, edad, tipoStr)) {
+                        limpiarCampos();
+                    }
                     break;
+                case Seleccionar:
+                    JOptionPane.showMessageDialog(null, "Ocupa elegir uno de los tipos de usuarios", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
             }
 
         } catch (Exception exception) {
