@@ -20,6 +20,7 @@ public class JavaTicket {
         ManejoDeUsuarios manejo = new ManejoDeUsuarios();
         ManejoDeEventos eventos = new ManejoDeEventos();
         Login login = new Login(manejo,eventos);
+        login.setVisible(true);
         
         
         //Logica para abrir la ventana de inicio

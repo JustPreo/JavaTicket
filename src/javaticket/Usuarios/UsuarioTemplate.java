@@ -21,7 +21,7 @@ public class UsuarioTemplate {
         this.username = username;
         this.password = password;
         this.edad = edad;
-        
+
     }
 
     public String getNombre() {
@@ -32,17 +32,33 @@ public class UsuarioTemplate {
         return username;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
     public boolean mismaPassword(String password) {
         if (this.password.equals(password)) {
             return true;
         }
         return false;
     }
-    
-    public int getEdad()
-    {
-    return edad;
+
+    public void setEdad(int edad) {
+        this.edad = edad;
     }
-    
-    
+
+    public void setPass(String password) {
+        this.password = password;
+
+    }
+
+    public void setNombre(String name) {
+        this.nombre = name;
+
+    }
+
 }

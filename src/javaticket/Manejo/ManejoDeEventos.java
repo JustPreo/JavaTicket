@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
  *
  * @author user
  */
-public class ManejoDeEventos {
+public final class ManejoDeEventos {
 
     public static ArrayList<categorias> eventos;
 
@@ -66,13 +66,10 @@ public class ManejoDeEventos {
     }
 
     public boolean estaRealizado(categorias evento) {
-        // Aquí asumo que la clase categorias tiene boolean isRealizado()
-        // Si no, tendrás que agregar el atributo boolean realizado en categorias.
         return evento.isRealizado();
     }
 
     public void marcarCancelado(categorias evento) {
-        // Asumiendo también que tienes setCancelado(boolean)
         evento.setCancelado(true);
     }
 

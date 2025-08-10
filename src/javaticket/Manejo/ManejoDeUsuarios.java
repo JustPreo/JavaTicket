@@ -17,14 +17,14 @@ import javax.swing.JOptionPane;
  *
  * @author user
  */
-public class ManejoDeUsuarios {
+public final class ManejoDeUsuarios {
 
     public static ArrayList<UsuarioTemplate> usuarios;
     public static UsuarioTemplate userLogged = null;
     public static Calendar fechaActual = null;
 
     public ManejoDeUsuarios() {
-        usuarios = new ArrayList<UsuarioTemplate>();
+        usuarios = new ArrayList<>();
         usuarios.add(new Administrador("admin", "admin", "supersecreto", 69));
     }
 
@@ -52,14 +52,13 @@ public class ManejoDeUsuarios {
                     JOptionPane.showMessageDialog(null, "Tipo de usuario inválido");//Por si acaso
                     return false;
             }
-            
 
             if (nuevoUsuario != null) {
                 usuarios.add(nuevoUsuario);
                 JOptionPane.showMessageDialog(null, "Usuario Creado Exitosamente");
                 return true;
             }
-            
+
         }
         return false;
     }
@@ -73,14 +72,14 @@ public class ManejoDeUsuarios {
             System.out.println("Contra valida");
             return true;
         }
-        JOptionPane.showMessageDialog(null, "Contrasena requiere al menos:" +"\n 8 Caracteres , Simbolos , 1 Mayuscula , 1 Minuscula");
+        JOptionPane.showMessageDialog(null, "Contrasena requiere al menos:" + "\n 8 Caracteres , Simbolos , 1 Mayuscula , 1 Minuscula");
         return false;
     }
 
     private boolean verificarUsername(String username) {
         for (UsuarioTemplate usuario : usuarios) {
             if (usuario.getUserame().equals(username)) {
-                JOptionPane.showMessageDialog(null, "Ya existe con usuario con ese username","Error",JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Ya existe con usuario con ese username", "Error", JOptionPane.ERROR_MESSAGE);
                 return false; // No válido, username ya existe
             }
         }
@@ -117,4 +116,40 @@ public class ManejoDeUsuarios {
             System.out.println("A");
         }
     }
+
+    public boolean eliminarUsuario(String username) {
+        UsuarioTemplate u = buscarU(username);
+        if (u != null && !(u instanceof Administrador)) {
+            usuarios.remove(u);
+            //Osea , esto remueve directamente el objeto sin necesidad de tener el index
+            return true;
+        }
+
+        if (u != null & u instanceof Administrador) {
+            JOptionPane.showMessageDialog(null, "No se pueden borrar administradores", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "No se encontro un usuario con ese username", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+        return false;
+
+    }
+    
+    public boolean editarUsuario(String nombre,String password,int edad,String username)
+    {
+        //Saco el username para buscar el usuario
+        UsuarioTemplate u = buscarU(username);
+        if (verificarContra(password)&&(edad>0))
+        {
+            u.setEdad(edad);
+            u.setPass(password);
+            u.setNombre(nombre);
+            JOptionPane.showMessageDialog(null, "Usuario editado correctamente");
+            return true;
+        }
+        return false;
+    
+    }
+    
+   
 }

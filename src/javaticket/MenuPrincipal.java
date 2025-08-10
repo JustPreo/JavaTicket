@@ -10,6 +10,7 @@ import javaticket.AdministradorEventos.AdministrarEventos;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javaticket.AdministradorUsuarios.AdministrarUsuarios;
 import javax.swing.*;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
@@ -52,14 +53,15 @@ public class MenuPrincipal extends JFrame{
         
         Eventos.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                new AdministrarEventos(manejo, eventos);
+                new AdministrarEventos(manejo, eventos).setVisible(true);
                 dispose();
             }
         });
         
         Usuarios.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.exit(0); // cerrar programa
+               new AdministrarUsuarios(manejo,eventos).setVisible(true);
+               dispose();
             }
         });
         

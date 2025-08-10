@@ -99,6 +99,7 @@ public class CrearEvento extends JFrame {
         Volver.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 AdministrarEventos menu = new AdministrarEventos(manejo, eventos);
+                menu.setVisible(true);
                 dispose();
             }
         });
@@ -132,8 +133,6 @@ public class CrearEvento extends JFrame {
                 crearEvento();
             }
         });
-
-        setVisible(true);
     }
 
     private void crearCOMBODeportivo() {

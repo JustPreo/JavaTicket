@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package javaticket.AdministradorUsuarios;
 
 /**
@@ -92,7 +96,7 @@ public class CrearUsuario extends JFrame {
 
         volverBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                new AdministrarUsuarios(manejo,eventos).setVisible(true);
                 dispose();
             }
         });
@@ -103,8 +107,6 @@ public class CrearUsuario extends JFrame {
 
             }
         });
-
-        setVisible(true);
     }
 
     private void limpiarCampos() {
@@ -157,10 +159,5 @@ public class CrearUsuario extends JFrame {
 
     }
 
-    public static void main(String[] args) {
-        ManejoDeUsuarios manejo = new ManejoDeUsuarios();
-        ManejoDeEventos eventos = new ManejoDeEventos();
-        CrearUsuario crear = new CrearUsuario(manejo, eventos);
-
-    }
+    
 }

@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package javaticket.AdministradorEventos;
 
 import javaticket.Categorias.categorias;
@@ -12,6 +16,10 @@ import javaticket.Manejo.ManejoDeUsuarios;
 
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
+/**
+ *
+ * @author user
+ */
 public class VerEvento extends JFrame {
 
     private ManejoDeEventos eventos;
@@ -65,12 +73,11 @@ public class VerEvento extends JFrame {
 
         volverBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent e) {
-                AdministrarEventos admin = new AdministrarEventos(manejo,eventos);
+                AdministrarEventos admin = new AdministrarEventos(manejo, eventos);
+                admin.setVisible(true);
                 dispose();
             }
         });
-
-        setVisible(true);
     }
 
     private void buscarEvento() {
@@ -138,5 +145,4 @@ public class VerEvento extends JFrame {
         }
     }
 
-    
 }

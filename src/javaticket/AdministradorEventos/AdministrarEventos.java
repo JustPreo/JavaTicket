@@ -59,6 +59,7 @@ public class AdministrarEventos extends JFrame {
         Crear.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 CrearEvento crear = new CrearEvento(manejo,eventos);
+                crear.setVisible(true);
                 dispose();
             }
         });
@@ -66,6 +67,7 @@ public class AdministrarEventos extends JFrame {
         Eliminar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 EliminarEvento eliminar = new EliminarEvento(manejo,eventos);
+                eliminar.setVisible(true);
                 dispose();
             }
         });
@@ -73,6 +75,7 @@ public class AdministrarEventos extends JFrame {
         Editar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 EditarEvento editar = new EditarEvento(manejo,eventos);
+                editar.setVisible(true);
                 dispose();
             }
         });
@@ -80,6 +83,7 @@ public class AdministrarEventos extends JFrame {
         Ver.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 VerEvento ver = new VerEvento(manejo,eventos);
+                ver.setVisible(true);
                 dispose();
             }
         });
@@ -87,10 +91,10 @@ public class AdministrarEventos extends JFrame {
         Volver.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 MenuPrincipal menu = new MenuPrincipal(manejo,eventos);
+                menu.setVisible(true);
                 dispose();
             }
         });
-        setVisible(true);
 
     }
     

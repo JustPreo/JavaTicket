@@ -53,6 +53,7 @@ public class EliminarEvento extends JFrame {
         Volver.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 AdministrarEventos menu = new AdministrarEventos(manejo, eventos);
+                menu.setVisible(true);
                 dispose();
             }
         });
@@ -63,8 +64,6 @@ public class EliminarEvento extends JFrame {
                 eliminarEvento();
             }
         });
-
-        setVisible(true);
     }
 
     private void eliminarEvento() {
