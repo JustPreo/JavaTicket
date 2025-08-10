@@ -1,128 +1,121 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package javaticket.AdministradorEventos;
 
 import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import javaticket.Categorias.Deportivo;
-import javaticket.Categorias.Musical;
-import javaticket.Categorias.Religioso;
-import javaticket.Categorias.categorias;
-import javaticket.Manejo.ManejoDeEventos;
-import javaticket.Manejo.ManejoDeUsuarios;
-import static javaticket.Manejo.ManejoDeUsuarios.userLogged;
-import javaticket.Usuarios.Administrador;
-import javaticket.Usuarios.Contenidos;
+import java.text.*;
+import java.util.*;
+import javaticket.Categorias.*;
+import javaticket.Manejo.*;
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 
-/**
- *
- * @author user
- */
 public class EditarEvento extends JFrame {
 
+    // Manejo de datos
     private ManejoDeUsuarios manejo;
     private ManejoDeEventos eventos;
-    private JLabel codigoL, nombreT, descripcionT, fechaT, costoT;
     private JTextField codigoTF, nombre, descripcion, costo;
     private JDateChooser fechaS;
     private JButton buscarBtn, Volver, guardarCambios;
-    private JComboBox<String> c1, c2;
+    private JComboBox<String> c2;
+    private JPanel panelExtra;
+    private JTable tablaEquipo1, tablaEquipo2, tablaMontaje;
+    private DefaultTableModel modeloEquipo1, modeloEquipo2, modeloMontaje;
+    private JSpinner spinnerConvertidos;//Como para elegir los datos 
+    private categorias eventoActual;
 
     public EditarEvento(ManejoDeUsuarios manejo, ManejoDeEventos eventos) {
         this.manejo = manejo;
         this.eventos = eventos;
 
-        setSize(500, 500);
-        setTitle("Eliminar Evento");
+        setSize(650, 650);
+        setTitle("Editar Evento");
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLayout(null);
         getContentPane().setBackground(Color.cyan);
-
-        codigoL = new JLabel("Ingrese codigo del evento:");
-        codigoL.setBounds(0, 20, 200, 30);
+        //Labels y esas cosas
+        JLabel codigoL = new JLabel("Código:");
+        codigoL.setBounds(20, 20, 100, 30);
         add(codigoL);
 
         codigoTF = new JTextField();
-        codigoTF.setBounds(160, 20, 150, 30);
+        codigoTF.setBounds(80, 20, 80, 30);
         add(codigoTF);
 
-        buscarBtn = new JButton("Buscar Evento");
-        buscarBtn.setBounds(50, 50, 130, 30);
+        buscarBtn = new JButton("Buscar");
+        buscarBtn.setBounds(180, 20, 100, 30);
         add(buscarBtn);
 
-        Volver = new JButton("Volver");
-        Volver.setBounds(170, 360, 150, 50);
-        add(Volver);
+        JLabel nombreT = new JLabel("Nombre:");
+        nombreT.setBounds(20, 70, 100, 25);
+        add(nombreT);
 
+        nombre = new JTextField();
+        nombre.setBounds(80, 70, 200, 30);
+        add(nombre);
+
+        JLabel descripcionT = new JLabel("Descripción:");
+        descripcionT.setBounds(20, 110, 100, 25);
+        add(descripcionT);
+
+        descripcion = new JTextField();
+        descripcion.setBounds(110, 110, 300, 30);
+        add(descripcion);
+
+        JLabel fechaT = new JLabel("Fecha:");
+        fechaT.setBounds(20, 150, 100, 25);
+        add(fechaT);
+
+        fechaS = new JDateChooser();
+        fechaS.setDateFormatString("yyyy-MM-dd");
+        fechaS.setMinSelectableDate(new java.util.Date());
+        fechaS.setBounds(80, 150, 150, 30);
+        add(fechaS);
+
+        JLabel costoT = new JLabel("Costo:");
+        costoT.setBounds(250, 150, 100, 25);
+        add(costoT);
+
+        costo = new JTextField();
+        costo.setBounds(300, 150, 100, 30);
+        add(costo);
+        //El panel que esta abajo
+        panelExtra = new JPanel();
+        panelExtra.setLayout(null);
+        panelExtra.setBounds(20, 200, 600, 300);
+        panelExtra.setBackground(Color.lightGray);
+        add(panelExtra);
+
+        //Creacion de botones y listeners
         guardarCambios = new JButton("Guardar Cambios");
-        guardarCambios.setBounds(170, 300, 150, 50);
+        guardarCambios.setBounds(100, 520, 150, 40);
         add(guardarCambios);
 
+        Volver = new JButton("Volver");
+        Volver.setBounds(300, 520, 150, 40);
+        add(Volver);
+
+        buscarBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                buscarEvento();
+            }
+        });
         guardarCambios.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 editar();
             }
         });
-
         Volver.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 AdministrarEventos menu = new AdministrarEventos(manejo, eventos);
                 dispose();
             }
         });
-
-        buscarBtn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                buscarEvento();
-            }
-        });
-
-        //Cosos extra
-        nombreT = new JLabel("Nombre del evento");
-        nombreT.setBounds(30, 90, 150, 25);
-        add(nombreT);
-
-        nombre = new JTextField();
-        nombre.setBounds(30, 115, 150, 30);
-        add(nombre);
-
-        descripcionT = new JLabel("Descripción");
-        descripcionT.setBounds(30, 150, 150, 25);
-        add(descripcionT);
-
-        descripcion = new JTextField();
-        descripcion.setBounds(30, 175, 150, 30);
-        add(descripcion);
-
-        fechaT = new JLabel("Fecha");
-        fechaT.setBounds(250, 30, 150, 25);
-        add(fechaT);
-
-        fechaS = new JDateChooser();
-        fechaS.setDateFormatString("yyyy-MM-dd");
-        fechaS.setMinSelectableDate(new java.util.Date());
-        fechaS.setBounds(250, 55, 150, 30);
-        add(fechaS);
-
-        costoT = new JLabel("Costo");
-        costoT.setBounds(250, 90, 150, 25);
-        add(costoT);
-
-        costo = new JTextField();
-        costo.setBounds(250, 115, 150, 30);
-        add(costo);
 
         setVisible(true);
     }
@@ -131,88 +124,215 @@ public class EditarEvento extends JFrame {
         try {
             int codigo = Integer.parseInt(codigoTF.getText());
             categorias evento = eventos.buscarEvento(codigo);
+
             if (evento == null) {
-                JOptionPane.showMessageDialog(this, "No se encontro evento con ese código.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "No se encontró evento con ese código.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            //Poner los cositos donde deberian ir los cositos
+
+            this.eventoActual = evento;
+
+            // Rellenar campos 
             nombre.setText(evento.getTitulo());
             descripcion.setText(evento.getDescripcion());
-            //Formatear fechas
             DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            fechaS.setDate((Date) format.parse(evento.getFecha()));
+            fechaS.setDate(format.parse(evento.getFecha()));
+            costo.setText(Double.toString(evento.getCosto()));
 
-            if (evento instanceof Deportivo) {
-                System.out.println("A");
-                eliminarCombo();
-                String[] deportivo = {"Futbol", "Tenis", "Rugby", "Baseball"};
-                c2 = new JComboBox<>(deportivo);
-                c2.setBounds(250, 175, 150, 30);
-                add(c2);
-                repaint();
-                c2.setSelectedIndex(buscarIndex("Deportivo", ((Deportivo) evento).getTipoDeporte()));
+            // Muestro el panel extra 
+            mostrarPanelExtra(evento);
 
-            } else if (evento instanceof Musical) {
-                System.out.println("B");
-                eliminarCombo();
-                String[] musical = {"Pop", "Rock", "Rap", "Clasica", "Reggaeton", "Otro"};
-                c2 = new JComboBox<>(musical);
-                c2.setBounds(250, 175, 150, 30);
-                add(c2);
-                repaint();
-                c2.setSelectedIndex(buscarIndex("Musical", ((Musical) evento).getTipoMusica()));
-
-            } else if (evento instanceof Religioso) {
-                System.out.println("C");
-                eliminarCombo();//Porque no tiene otras opciones
-            }
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Ingresa valores validos!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-    }
-
-    private void eliminarCombo() {
-        if (c2 != null) {
-            remove(c2);
-            c2 = null;
-            repaint();
+        } catch (Exception e) {//General porque solo habran problemas generales
+            JOptionPane.showMessageDialog(this, "Error al buscar el evento.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    private int buscarIndex(String tipo, String subtipo) {
-        if ("Deportivo".equals(tipo)) {
-            String[] deportivo = {"Futbol", "Tenis", "Rugby", "Baseball"};
-            for (int i = 0; i < deportivo.length; i++) {
-                if (deportivo[i].equals(subtipo)) {
-                    return i;
-                }
-            }
+    private void mostrarPanelExtra(categorias evento) {
+        panelExtra.removeAll();//Borra todo lo que esta en el panel
 
-        } else if ("Musical".equals(tipo)) {
-            String[] musical = {"Pop", "Rock", "Rap", "Clasica", "Reggaeton", "Otro"};
-            for (int i = 0; i < musical.length; i++) {
-                if (musical[i].equals(subtipo)) {
-                    return i;
-                }
-            }
+        if (evento instanceof Deportivo) {
+            String[] deportes = {"Futbol", "Tenis", "Rugby", "Baseball"};
+            c2 = new JComboBox<>(deportes);
+            c2.setBounds(20, 10, 150, 25);
+            c2.setSelectedItem(((Deportivo) evento).getTipoDeporte());
+            panelExtra.add(c2);
 
+            //equipo 1
+            modeloEquipo1 = new DefaultTableModel(new Object[]{"Equipo 1"}, 0);
+            for (String j : ((Deportivo) evento).getJugadoresEquipo1()) {
+                modeloEquipo1.addRow(new Object[]{j});
+            }
+            tablaEquipo1 = new JTable(modeloEquipo1);
+            JScrollPane scroll1 = new JScrollPane(tablaEquipo1);
+            scroll1.setBounds(20, 50, 200, 150);
+            panelExtra.add(scroll1);
+
+            JButton addE1 = new JButton("Añadir jugador");
+            addE1.setBounds(20, 210, 150, 25);
+            addE1.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    modeloEquipo1.addRow(new Object[]{""});
+                }
+            });
+            panelExtra.add(addE1);
+
+            JButton delE1 = new JButton("Eliminar jugador");
+            delE1.setBounds(170, 210, 130, 25);
+            delE1.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    int sel = tablaEquipo1.getSelectedRow();
+                    if (sel != -1) {
+                        modeloEquipo1.removeRow(sel);
+                    }
+                }
+            });
+
+            panelExtra.add(delE1);
+
+            // Tabla de jugadores equipo 2
+            modeloEquipo2 = new DefaultTableModel(new Object[]{"Equipo 2"}, 0);
+            for (String j : ((Deportivo) evento).getJugadoresEquipo2()) {
+                modeloEquipo2.addRow(new Object[]{j});
+            }
+            tablaEquipo2 = new JTable(modeloEquipo2);
+            JScrollPane scroll2 = new JScrollPane(tablaEquipo2);
+            scroll2.setBounds(300, 50, 200, 150);
+            panelExtra.add(scroll2);
+
+            JButton addE2 = new JButton("Añadir jugador");
+            addE2.setBounds(300, 210, 150, 25);
+            addE2.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    modeloEquipo2.addRow(new Object[]{""});
+                }
+            });
+            panelExtra.add(addE2);
+
+            JButton delE2 = new JButton("Eliminar jugador");
+            delE2.setBounds(450, 210, 130, 25);
+            delE2.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    int sel = tablaEquipo2.getSelectedRow();
+                    if (sel != -1) {
+                        modeloEquipo2.removeRow(sel);
+                    }
+                }
+            });
+
+            panelExtra.add(delE2);
+
+        } else if (evento instanceof Musical) {
+            // Selector de tipo de música
+            String[] tipos = {"Pop", "Rock", "Rap", "Clasica", "Reggaeton", "Otro"};
+            c2 = new JComboBox<>(tipos);
+            c2.setBounds(20, 10, 150, 25);
+            c2.setSelectedItem(((Musical) evento).getTipoMusica());
+            panelExtra.add(c2);
+
+            // Tabla de equipo de montaje
+            modeloMontaje = new DefaultTableModel(new Object[]{"Equipo de Montaje"}, 0);
+            for (String p : ((Musical) evento).getEquipoMontaje()) {
+                modeloMontaje.addRow(new Object[]{p});
+            }
+            tablaMontaje = new JTable(modeloMontaje);
+            JScrollPane scroll = new JScrollPane(tablaMontaje);
+            scroll.setBounds(20, 50, 300, 150);
+            panelExtra.add(scroll);
+
+            JButton add = new JButton("Añadir persona");
+            add.setBounds(20, 210, 150, 25);
+            add.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    modeloMontaje.addRow(new Object[]{""});
+                }
+            });
+
+            panelExtra.add(add);
+
+            JButton del = new JButton("Eliminar persona");
+            del.setBounds(180, 210, 150, 25);
+            del.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent e) {
+                    int sel = tablaMontaje.getSelectedRow();
+                    if (sel != -1) {
+                        modeloMontaje.removeRow(sel);
+                    }
+                }
+            });
+
+            panelExtra.add(del);
+
+        } else if (evento instanceof Religioso) {
+            JLabel l = new JLabel("Convertidos:");
+            l.setBounds(20, 10, 100, 25);
+            panelExtra.add(l);
+
+            spinnerConvertidos = new JSpinner(new SpinnerNumberModel(((Religioso) evento).getConvertidos(), 0, ((Religioso) evento).getCapacidadMaxima(), 1));//Uso la capacidad maxima como maximo por si acaso
+            spinnerConvertidos.setBounds(120, 10, 80, 25);
+            panelExtra.add(spinnerConvertidos);
         }
-        return 0;
 
+        panelExtra.revalidate();
+        panelExtra.repaint();
     }
 
     private void editar() {
-        //Logica para editar
+        if (eventoActual == null) {
+            JOptionPane.showMessageDialog(this, "Primero busca un evento.");
+            return;
+        }
+        try {
+            // Guardar datos
+            eventoActual.setTitulo(nombre.getText());
+            eventoActual.setDescripcion(descripcion.getText());
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            eventoActual.setFecha(format.format(fechaS.getDate()));
+            eventoActual.setCosto(Double.parseDouble(costo.getText()));
+
+ 
+            if (eventoActual instanceof Deportivo) {
+                Deportivo dep = (Deportivo) eventoActual;
+                dep.setTipoDeporte((String) c2.getSelectedItem());
+
+                ArrayList<String> eq1 = new ArrayList<>();
+                for (int i = 0; i < modeloEquipo1.getRowCount(); i++) {
+                    String nombre = (String) modeloEquipo1.getValueAt(i, 0);
+                    if (nombre != null && !nombre.trim().isEmpty()) {
+                        eq1.add(nombre.trim());
+                    }
+                }
+                dep.setJugadoresEquipo1(eq1);
+
+                ArrayList<String> eq2 = new ArrayList<>();
+                for (int i = 0; i < modeloEquipo2.getRowCount(); i++) {
+                    String nombre = (String) modeloEquipo2.getValueAt(i, 0);
+                    if (nombre != null && !nombre.trim().isEmpty()) {
+                        eq2.add(nombre.trim());
+                    }
+                }
+                dep.setJugadoresEquipo2(eq2);
+
+            } else if (eventoActual instanceof Musical) {
+                Musical mus = (Musical) eventoActual;
+                mus.setTipoMusica((String) c2.getSelectedItem());
+
+                ArrayList<String> equipo = new ArrayList<>();
+                for (int i = 0; i < modeloMontaje.getRowCount(); i++) {
+                    String nombre = (String) modeloMontaje.getValueAt(i, 0);
+                    if (nombre != null && !nombre.trim().isEmpty()) {
+                        equipo.add(nombre.trim());
+                    }
+                }
+                mus.setEquipoMontaje(equipo);
+
+            } else if (eventoActual instanceof Religioso) {
+                Religioso rel = (Religioso) eventoActual;
+                rel.setConvertidos((Integer) spinnerConvertidos.getValue());
+            }
+
+            JOptionPane.showMessageDialog(this, "Evento actualizado exitosamente.");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al guardar los cambios.");
+        }
     }
-
-    public static void main(String[] args) {
-        ManejoDeUsuarios manejo = new ManejoDeUsuarios();
-        ManejoDeEventos eventos = new ManejoDeEventos();
-
-        EditarEvento a = new EditarEvento(manejo, eventos);
-    }
-
 }

@@ -79,7 +79,8 @@ public class AdministrarEventos extends JFrame {
 
         Ver.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.exit(0); // cerrar programa
+                VerEvento ver = new VerEvento(manejo,eventos);
+                dispose();
             }
         });
 

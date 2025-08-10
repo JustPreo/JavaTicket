@@ -23,7 +23,7 @@ public class ManejoDeEventos {
 
     public boolean revisarFechas(String fecha) {
         for (categorias evento : eventos) {
-            if (evento.getFecha().equals(fecha)) {
+            if (evento.getFecha().equals(fecha) && !evento.isCancelado()) {
                 JOptionPane.showMessageDialog(null, "ERROR:Otro evento tiene esta fecha");
                 return false;
             }

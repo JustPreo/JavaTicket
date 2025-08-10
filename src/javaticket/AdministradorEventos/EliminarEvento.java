@@ -68,78 +68,58 @@ public class EliminarEvento extends JFrame {
     }
 
     private void eliminarEvento() {
-        try {
-            int codigo = Integer.parseInt(codigoTF.getText());
-            categorias evento = eventos.buscarEvento(codigo);
+    try {
+        int codigo = Integer.parseInt(codigoTF.getText());
+        categorias evento = eventos.buscarEvento(codigo);
 
-            if (evento == null) {
-                JOptionPane.showMessageDialog(this, "No se encontró evento con ese código.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            boolean bool = false;
-            if (userLogged instanceof Administrador) {
-                bool = ((Administrador) userLogged).creador(codigo);
-
-            } else if (userLogged instanceof Contenidos) {
-                bool = ((Contenidos) userLogged).creador(codigo);
-            }
-
-            System.out.println(bool);
-
-            if (!bool) {
-                JOptionPane.showMessageDialog(this, "Evento no creado por usuario", "Eror", JOptionPane.INFORMATION_MESSAGE);
-                return;
-            }
-
-            if (evento.isCancelado()) {
-                JOptionPane.showMessageDialog(this, "El evento ya está cancelado.", "Info", JOptionPane.INFORMATION_MESSAGE);
-                return;
-            }
-
-            if (evento.isRealizado()) {
-                JOptionPane.showMessageDialog(this, "El evento ya se realizó, no puede ser cancelado.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            // Verificar días para evento
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            Date fechaEvento = sdf.parse(evento.getFecha());
-            Date hoy = new Date();
-
-            long diffMs = fechaEvento.getTime() - hoy.getTime();
-            System.out.println(diffMs);
-            long diffDias = diffMs / (1000 * 60 * 60 * 24);
-            System.out.println(diffDias);
-            
-            
-
-            double indemnizacion = 0.0;
-
-            if (diffDias == 1) { // Un día antes
-                if (!evento.getTitulo().equalsIgnoreCase("Religioso")) {
-                    indemnizacion = evento.getCosto() * 0.5;
-                }
-            }
-
-            eventos.marcarCancelado(evento);
-
-            String mensaje = "Evento cancelado correctamente.";
-            if (indemnizacion > 0) {
-                mensaje += String.format("\nSe cobrara Indemnizacion del 50%%: Lps %.2f", indemnizacion);
-            } else {
-                mensaje += "\nNo hay indemnización que cobrar.";
-            }
-
-            JOptionPane.showMessageDialog(this, mensaje, "Éxito", JOptionPane.INFORMATION_MESSAGE);
-
-        } catch (NumberFormatException nfe) {
-            JOptionPane.showMessageDialog(this, "Código inválido, ingrese un número.", "Error", JOptionPane.ERROR_MESSAGE);
-        } catch (ParseException pe) {
-            JOptionPane.showMessageDialog(this, "Error al procesar la fecha del evento.", "Error", JOptionPane.ERROR_MESSAGE);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Error inesperado: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        if (evento == null) {
+            JOptionPane.showMessageDialog(this, "No se encontro evento con ese codigo.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
         }
+
+        boolean bool = false;
+        if (userLogged instanceof Administrador) {
+            bool = ((Administrador) userLogged).creador(codigo);
+        } else if (userLogged instanceof Contenidos) {
+            bool = ((Contenidos) userLogged).creador(codigo);
+        }
+
+        if (!bool) {
+            JOptionPane.showMessageDialog(this, "Evento no creado por usuario", "Error", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        if (evento.isCancelado()) {
+            JOptionPane.showMessageDialog(this, "El evento ya esta cancelado.", "Info", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        if (evento.isRealizado()) {
+            JOptionPane.showMessageDialog(this, "El evento ya se realizo, no puede ser cancelado.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        double multa = evento.calcularMulta();
+
+        evento.setCancelado(true);
+        evento.setMulta(multa);
+
+        String mensaje = "Evento cancelado correctamente.";
+        if (multa > 0) {
+            mensaje += String.format("\nSe cobrara una multa de: Lps %.2f", multa);
+        } else {
+            mensaje += "\nNo hay multa que cobrar.";
+        }
+
+        JOptionPane.showMessageDialog(this, mensaje, "Exito", JOptionPane.INFORMATION_MESSAGE);
+
+    } catch (NumberFormatException nfe) {
+        JOptionPane.showMessageDialog(this, "Codigo invalido, ingrese un numero.", "Error", JOptionPane.ERROR_MESSAGE);
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(this, "Error inesperado: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
+}
+
 
     public static void main(String[] args) {
         ManejoDeUsuarios manejo = new ManejoDeUsuarios();
