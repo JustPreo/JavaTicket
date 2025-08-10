@@ -19,7 +19,8 @@ public class Login extends JFrame {
 
     private JButton submit;
     private JLabel UsuarioI, ContraI, Titulo;
-    private JTextField Usuario, Contra;
+    private JTextField Usuario;
+    private JPasswordField Contra;
     ManejoDeUsuarios manejo;
     ManejoDeEventos eventos;
     public Login(ManejoDeUsuarios manejo,ManejoDeEventos eventos) {
@@ -44,7 +45,7 @@ public class Login extends JFrame {
         UsuarioI.setBounds(225, 150, 150, 25);
         add(UsuarioI);
         //Boton Contra
-        Contra = new JTextField();
+        Contra = new JPasswordField();
         Contra.setBounds(175, 225, 150, 25);
         add(Contra);
         ContraI = new JLabel("Contrasena");
@@ -83,14 +84,7 @@ public class Login extends JFrame {
     
     public boolean revisar()
     {
-        if (!Contra.getText().equals("") && !Usuario.getText().equals(""))
-        {
-        return true;
-        }
-        
-    
-        
-    return false;
+    return !(String.valueOf(Contra.getPassword()).equals("")) && !Usuario.getText().equals("");
     }
 
     

@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package javaticket.AdministradorEventos;
 
 import javaticket.Categorias.Musical;
@@ -14,7 +18,10 @@ import java.text.SimpleDateFormat;
 import javaticket.Manejo.ManejoDeEventos;
 import javaticket.Manejo.ManejoDeUsuarios;
 import javax.swing.*;
-
+/**
+ *
+ * @author user
+ */
 public class CrearEvento extends JFrame {
 
     ManejoDeUsuarios manejo;
@@ -22,7 +29,7 @@ public class CrearEvento extends JFrame {
 
     private JLabel codigoT, nombreT, descripcionT, fechaT, costoT;
     private JTextField codigo, nombre, descripcion, costo;
-    private JButton crear,Volver;
+    private JButton crear, Volver;
     private JComboBox<String> c1, c2;
     private JDateChooser fechaS;
 
@@ -84,14 +91,14 @@ public class CrearEvento extends JFrame {
         c1 = new JComboBox<>(categorias);
         c1.setBounds(250, 175, 150, 30);
         add(c1);
-        
+
         Volver = new JButton("Volver");
         Volver.setBounds(0, 0, 50, 50);
         add(Volver);
-        
+
         Volver.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                AdministrarEventos menu = new AdministrarEventos(manejo,eventos);
+                AdministrarEventos menu = new AdministrarEventos(manejo, eventos);
                 dispose();
             }
         });
@@ -206,7 +213,7 @@ public class CrearEvento extends JFrame {
             }
 
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Error al crear evento: "+"\nParametros incorrectos");
+            JOptionPane.showMessageDialog(this, "Error al crear evento: " + "\nParametros incorrectos");
             return false;
         }
     }
@@ -214,7 +221,9 @@ public class CrearEvento extends JFrame {
     private boolean validarDeporte(String deporte) {
         String[] validos = {"Futbol", "Tenis", "Rugby", "Baseball"};
         for (String v : validos) {
-            if (v.equalsIgnoreCase(deporte)) return true;
+            if (v.equalsIgnoreCase(deporte)) {
+                return true;
+            }
         }
         return false;
     }
@@ -222,7 +231,9 @@ public class CrearEvento extends JFrame {
     private boolean validarMusica(String musica) {
         String[] validos = {"Pop", "Rock", "Rap", "Clasica", "Reggaeton", "Otro"};
         for (String v : validos) {
-            if (v.equalsIgnoreCase(musica)) return true;
+            if (v.equalsIgnoreCase(musica)) {
+                return true;
+            }
         }
         return false;
     }

@@ -3,103 +3,118 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package javaticket.Manejo;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import javaticket.Categorias.categorias;
 import javaticket.Usuarios.Administrador;
 import javaticket.Usuarios.Contenidos;
+import javaticket.Usuarios.Limitado;
 import javaticket.Usuarios.UsuarioTemplate;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author user
  */
-
 public class ManejoDeUsuarios {
-    
-    //Funciones que tiene crearUsuario()|verificarContra()|verificarUsername()|logearse()|buscarU()|
-    
+
     public static ArrayList<UsuarioTemplate> usuarios;
     public static UsuarioTemplate userLogged = null;
     public static Calendar fechaActual = null;
-    public ManejoDeUsuarios()
-    {
-    usuarios = new ArrayList<UsuarioTemplate>();
-    usuarios.add(new Administrador("admin","admin","supersecreto",69));
+
+    public ManejoDeUsuarios() {
+        usuarios = new ArrayList<UsuarioTemplate>();
+        usuarios.add(new Administrador("admin", "admin", "supersecreto", 69));
     }
-    
-    public boolean crearUsuario(String nombre , String username , String password , int edad)
-    {
-        if (verificarContra(password) && verificarUsername(username))
-        {
-        usuarios.add(new UsuarioTemplate(nombre,username,password,edad));
-        return true;
+
+    public enum TipoUsuario {
+        ADMINISTRATIVO,
+        CONTENIDO,
+        LIMITADO
+    }
+
+    public boolean crearUsuario(String nombre, String username, String password, int edad, String tipoUsuario) {
+        if (verificarContra(password) && verificarUsername(username)) {
+            UsuarioTemplate nuevoUsuario = null;
+
+            switch (tipoUsuario) {
+                case "ADMINISTRATIVO":
+                    nuevoUsuario = new Administrador(nombre, username, password, edad);
+                    break;
+                case "CONTENIDO":
+                    nuevoUsuario = new Contenidos(nombre, username, password, edad);
+                    break;
+                case "LIMITADO":
+                    nuevoUsuario = new Limitado(nombre, username, password, edad);
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(null, "Tipo de usuario inválido");//Por si acaso
+                    return false;
+            }
+            
+
+            if (nuevoUsuario != null) {
+                usuarios.add(nuevoUsuario);
+                JOptionPane.showMessageDialog(null, "Usuario Creado Exitosamente");
+                return true;
+            }
+            
         }
-    
-    return false;
+        return false;
     }
-    
+
     private boolean verificarContra(String contra) {
-        
         System.out.println(contra.length());
         if (contra.length() >= 8
                 && contra.matches(".*\\d.*")
                 && contra.matches(".*[~`!@#$%^&*()\\-+={}\\[\\]|\\\\:;\"'<>./?].*")
-                && contra.matches(".*[A-Z].*"))
-        {
+                && contra.matches(".*[A-Z].*")) {
             System.out.println("Contra valida");
             return true;
         }
+        JOptionPane.showMessageDialog(null, "Contrasena requiere al menos:" +"\n 8 Caracteres , Simbolos , 1 Mayuscula , 1 Minuscula");
         return false;
     }
-    
-    private boolean verificarUsername(String username)
-    {
-    for (UsuarioTemplate usuario:usuarios)
-    {
-    if (usuario.getUserame().equals(username)){
-    return false;//No valido
-    }
-    }
-    return true;
-    }
-    
-    public boolean logearse(String username,String password)
-    {
-    UsuarioTemplate u = buscarU(username);
-        
-        if (u != null)
-    {
-        if (u.mismaPassword(password))
-        {
-            userLogged = u;
-        return true;
-        }
-    }
-    return false;
-    }
-    
-    public UsuarioTemplate buscarU (String username)
-    {
-    for (UsuarioTemplate U:usuarios)
-    {
-        if (U.getUserame().equals(username))
-        {
-        return U;
-        }
-    }
-    
-    return null;
-    }
-    
-    public void agregarArray(categorias evento) {
-    if (userLogged instanceof Administrador) {
-        ((Administrador) userLogged).agregarEvento(evento);
-        System.out.println("A");
-    } else if (userLogged instanceof Contenidos) {
-        ((Contenidos) userLogged).agregarEvento(evento);
-        System.out.println("A");
-    }
-}
-}
 
+    private boolean verificarUsername(String username) {
+        for (UsuarioTemplate usuario : usuarios) {
+            if (usuario.getUserame().equals(username)) {
+                JOptionPane.showMessageDialog(null, "Ya existe con usuario con ese username","Error",JOptionPane.ERROR_MESSAGE);
+                return false; // No válido, username ya existe
+            }
+        }
+        return true;
+    }
+
+    public boolean logearse(String username, String password) {
+        UsuarioTemplate u = buscarU(username);
+
+        if (u != null) {
+            if (u.mismaPassword(password)) {
+                userLogged = u;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public UsuarioTemplate buscarU(String username) {
+        for (UsuarioTemplate U : usuarios) {
+            if (U.getUserame().equals(username)) {
+                return U;
+            }
+        }
+        return null;
+    }
+
+    public void agregarArray(categorias evento) {
+        if (userLogged instanceof Administrador) {
+            ((Administrador) userLogged).agregarEvento(evento);
+            System.out.println("A");
+        } else if (userLogged instanceof Contenidos) {
+            ((Contenidos) userLogged).agregarEvento(evento);
+            System.out.println("A");
+        }
+    }
+}
