@@ -10,7 +10,11 @@ import javaticket.AdministradorEventos.AdministrarEventos;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javaticket.AdministradorEventos.EditarEvento;
+import javaticket.AdministradorReportes.AdministradorReportes;
+import javaticket.AdministradorReportes.EventosFuturo;
 import javaticket.AdministradorUsuarios.AdministrarUsuarios;
+import javaticket.Usuarios.Limitado;
 import javax.swing.*;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
@@ -60,14 +64,25 @@ public class MenuPrincipal extends JFrame{
         
         Usuarios.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-               new AdministrarUsuarios(manejo,eventos).setVisible(true);
+                               if(manejo.getUser() instanceof Limitado)
+                {
+                    JOptionPane.showMessageDialog(null, "No puedes editar usuarios!");
+                }
+                else
+                {
+                new AdministrarUsuarios(manejo,eventos).setVisible(true);
                dispose();
+                dispose();
+                }
+                
+                
             }
         });
         
         Reportes.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                System.exit(0); // cerrar programa
+                new AdministradorReportes(manejo,eventos).setVisible(true);
+                dispose();
             }
         });
         setVisible(true);

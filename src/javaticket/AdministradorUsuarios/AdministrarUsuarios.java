@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javaticket.Manejo.ManejoDeEventos;
 import javaticket.Manejo.ManejoDeUsuarios;
+import javaticket.MenuPrincipal;
 import javax.swing.*;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
@@ -75,7 +76,7 @@ public class AdministrarUsuarios extends JFrame {
         
         Volver.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                
+                new MenuPrincipal(manejo,eventos).setVisible(true);
                 dispose();
             }
         });

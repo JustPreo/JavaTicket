@@ -10,8 +10,9 @@ public abstract class categorias {
     private double multa;
     private boolean realizado;
     private boolean cancelado;
+    private int capacidad;
 
-    public categorias(int codigo, String titulo, String descripcion, String fecha, double costo) {
+    public categorias(int codigo, String titulo, String descripcion, String fecha, double costo, int capacidad) {
         this.codigo = codigo;
         this.titulo = titulo;
         this.descripcion = descripcion;
@@ -20,10 +21,15 @@ public abstract class categorias {
         this.realizado = false; //no realizado
         this.cancelado = false; //no cancelado
         this.multa = 0;  // no pagada
+        this.capacidad = capacidad;
     }
 
     public int getCodigo() {
         return codigo;
+    }
+
+    public int getCapacidad() {
+        return capacidad;
     }
 
     public String getTitulo() {
@@ -80,6 +86,10 @@ public abstract class categorias {
 
     public void setMulta(double multa) {
         this.multa = multa;
+    }
+    public void setCapacidad(int capacidad)
+    {
+    this.capacidad = capacidad;
     }
 
     public abstract double calcularMulta();

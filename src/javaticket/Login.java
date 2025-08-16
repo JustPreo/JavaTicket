@@ -7,6 +7,7 @@ package javaticket;
 import javaticket.Manejo.ManejoDeUsuarios;
 import javaticket.Manejo.ManejoDeEventos;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.*;
@@ -26,6 +27,8 @@ public class Login extends JFrame {
     public Login(ManejoDeUsuarios manejo,ManejoDeEventos eventos) {
         this.manejo = manejo;
         this.eventos = eventos;
+        Font paraLetras = new Font("Roboto", Font.BOLD, 16);
+
         setSize(500, 500);
         setTitle("Login");
         setResizable(false);
@@ -36,24 +39,34 @@ public class Login extends JFrame {
 
         submit = new JButton("Submit");
         submit.setBounds(200, 300, 100, 50);
+        submit.setFont(paraLetras);
+        submit.setBackground(Color.white);
         add(submit);
         //Boton Usuario
         Usuario = new JTextField();
         Usuario.setBounds(175, 175, 150, 25);
+        Usuario.setFont(paraLetras);
+        
         add(Usuario);
         UsuarioI = new JLabel("Usuario");
         UsuarioI.setBounds(225, 150, 150, 25);
+        UsuarioI.setFont(paraLetras);
         add(UsuarioI);
+        
         //Boton Contra
         Contra = new JPasswordField();
         Contra.setBounds(175, 225, 150, 25);
+        Contra.setFont(paraLetras);
+        
         add(Contra);
         ContraI = new JLabel("Contrasena");
         ContraI.setBounds(215, 200, 150, 25);
+        ContraI.setFont(paraLetras);
         add(ContraI);
         //Titulo
         Titulo = new JLabel("Titulo");
         Titulo.setBounds(230, 50, 150, 25);
+        Titulo.setFont(paraLetras);
         add(Titulo);
         //Action Listeners
         submit.addActionListener(new ActionListener() {
@@ -77,6 +90,15 @@ public class Login extends JFrame {
                 
             }
         });
+        
+        JPanel loginPanel = new JPanel();
+        loginPanel.setBounds(125, 130, 250, 250); // posicion y tamaño del fondo
+        loginPanel.setBackground(Color.WHITE); // color del fondo del login
+        loginPanel.setLayout(null);
+        loginPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+        add(loginPanel);
+        
+        
 
     }
     
@@ -84,6 +106,8 @@ public class Login extends JFrame {
     {
     return !(String.valueOf(Contra.getPassword()).equals("")) && !Usuario.getText().equals("");
     }
+    
+    
 
     
 }

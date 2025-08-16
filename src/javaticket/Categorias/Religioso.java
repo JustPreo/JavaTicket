@@ -12,8 +12,8 @@ public class Religioso extends categorias {
     private final double seguroFijo = 2000.0;
     private int convertidos;
 
-    public Religioso(int codigo, String titulo, String descripcion, String fecha, double costo) {
-        super(codigo, titulo, descripcion, fecha, costo);
+    public Religioso(int codigo, String titulo, String descripcion, String fecha, double costo,int capacidad) {
+        super(codigo, titulo, descripcion, fecha, costo,capacidad);
         convertidos = 0;
     }
 

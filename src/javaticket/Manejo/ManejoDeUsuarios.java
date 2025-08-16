@@ -151,5 +151,10 @@ public final class ManejoDeUsuarios {
     
     }
     
+    public UsuarioTemplate getUser()
+    {
+    return userLogged;
+    }
+    
    
 }

@@ -16,9 +16,9 @@ public class Deportivo extends categorias {
     DEPORTIVO - LISTADO DE JUGADORES POR CADA EQUIPO (2 ARRAYS ENTONCES)
         
      */
-    public Deportivo(int codigo, String titulo, String descripcion, String fecha, double costo,
+    public Deportivo(int codigo, String titulo, String descripcion, String fecha, double costo,int capacidad,
             String tipoDeporte, String equipo1, String equipo2) {
-        super(codigo, titulo, descripcion, fecha, costo);
+        super(codigo, titulo, descripcion, fecha, costo,capacidad);
         this.tipoDeporte = tipoDeporte;
         this.equipo1 = equipo1;
         this.equipo2 = equipo2;
@@ -65,8 +65,6 @@ public class Deportivo extends categorias {
     public double calcularMulta() {
         // Ejemplo: si evento cancelado y falta 1 día, multa es 50% del costo
         if (isCancelado()) {
-            // Aquí pondrías la lógica real con fechas
-            // Por ejemplo, retorno un 50% fijo para la demostración
             return getCosto() * 0.5;
         }
         return 0.0;

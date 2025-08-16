@@ -10,6 +10,7 @@ import java.awt.event.ActionListener;
 import javaticket.Manejo.ManejoDeEventos;
 import javaticket.Manejo.ManejoDeUsuarios;
 import javaticket.MenuPrincipal;
+import javaticket.Usuarios.Limitado;
 import javax.swing.*;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
@@ -58,25 +59,56 @@ public class AdministrarEventos extends JFrame {
         //Action Listeners
         Crear.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                if(manejo.getUser() instanceof Limitado)
+                {
+                    JOptionPane.showMessageDialog(null, "No puedes crear eventos!");
+                }
+                else
+                {
                 CrearEvento crear = new CrearEvento(manejo,eventos);
                 crear.setVisible(true);
                 dispose();
+                
+                }
+                        
             }
         });
 
         Eliminar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                
+                
+                if(manejo.getUser() instanceof Limitado)
+                {
+                    JOptionPane.showMessageDialog(null, "No puedes Eliminar eventos!");
+                }
+                else
+                {
                 EliminarEvento eliminar = new EliminarEvento(manejo,eventos);
                 eliminar.setVisible(true);
                 dispose();
+                
+                }
+                
             }
+            
+            
         });
 
         Editar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                
+                
+                if(manejo.getUser() instanceof Limitado)
+                {
+                    JOptionPane.showMessageDialog(null, "No puedes editar eventos!");
+                }
+                else
+                {
                 EditarEvento editar = new EditarEvento(manejo,eventos);
                 editar.setVisible(true);
                 dispose();
+                }
             }
         });
 

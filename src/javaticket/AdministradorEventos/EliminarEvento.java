@@ -8,7 +8,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import javaticket.Categorias.Religioso;
 import static javaticket.Manejo.ManejoDeUsuarios.userLogged;
 import javaticket.Usuarios.Administrador;
 import javaticket.Usuarios.Contenidos;
@@ -76,29 +78,34 @@ public class EliminarEvento extends JFrame {
             return;
         }
 
-        boolean bool = false;
-        if (userLogged instanceof Administrador) {
-            bool = ((Administrador) userLogged).creador(codigo);
-        } else if (userLogged instanceof Contenidos) {
-            bool = ((Contenidos) userLogged).creador(codigo);
-        }
-
-        if (!bool) {
-            JOptionPane.showMessageDialog(this, "Evento no creado por usuario", "Error", JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
-
-        if (evento.isCancelado()) {
-            JOptionPane.showMessageDialog(this, "El evento ya esta cancelado.", "Info", JOptionPane.INFORMATION_MESSAGE);
-            return;
-        }
-
         if (evento.isRealizado()) {
             JOptionPane.showMessageDialog(this, "El evento ya se realizo, no puede ser cancelado.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        double multa = evento.calcularMulta();
+        // comparar fecha
+        Date fechaEvento = new SimpleDateFormat("yyyy-MM-dd").parse(evento.getFecha());
+        Calendar calHoy = Calendar.getInstance();
+        calHoy.set(Calendar.HOUR_OF_DAY, 0);
+        calHoy.set(Calendar.MINUTE, 0);
+        calHoy.set(Calendar.SECOND, 0);
+        calHoy.set(Calendar.MILLISECOND, 0);
+
+        Calendar calEvento = Calendar.getInstance();
+        calEvento.setTime(fechaEvento);
+        calEvento.set(Calendar.HOUR_OF_DAY, 0);
+        calEvento.set(Calendar.MINUTE, 0);
+        calEvento.set(Calendar.SECOND, 0);
+        calEvento.set(Calendar.MILLISECOND, 0);
+
+        // diferencia en dias
+        long diffMillis = calEvento.getTimeInMillis() - calHoy.getTimeInMillis();
+        long diffDias = diffMillis / (24 * 60 * 60 * 1000);
+
+        double multa = 0;
+        if (diffDias <= 1 && !(evento instanceof Religioso)) {
+            multa = evento.getCosto() * 0.5; // 50% del costo
+        }
 
         evento.setCancelado(true);
         evento.setMulta(multa);
@@ -114,16 +121,11 @@ public class EliminarEvento extends JFrame {
 
     } catch (NumberFormatException nfe) {
         JOptionPane.showMessageDialog(this, "Codigo invalido, ingrese un numero.", "Error", JOptionPane.ERROR_MESSAGE);
+    } catch (ParseException pe) {
+        JOptionPane.showMessageDialog(this, "Error al leer la fecha del evento.", "Error", JOptionPane.ERROR_MESSAGE);
     } catch (Exception ex) {
         JOptionPane.showMessageDialog(this, "Error inesperado: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
 }
-
-
-    public static void main(String[] args) {
-        ManejoDeUsuarios manejo = new ManejoDeUsuarios();
-        ManejoDeEventos eventos = new ManejoDeEventos();
-        EliminarEvento login = new EliminarEvento(manejo, eventos);
-    }
 
 }
