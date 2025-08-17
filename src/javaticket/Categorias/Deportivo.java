@@ -9,6 +9,8 @@ public class Deportivo extends categorias {
     private final int capacidadMaxima = 20000;
     private String equipo1;
     private String equipo2;
+    private String nombreEquipo1;
+    private String nombreEquipo2;
     private ArrayList<String> jugadoresEquipo1;
     private ArrayList<String> jugadoresEquipo2;
 
@@ -16,9 +18,9 @@ public class Deportivo extends categorias {
     DEPORTIVO - LISTADO DE JUGADORES POR CADA EQUIPO (2 ARRAYS ENTONCES)
         
      */
-    public Deportivo(int codigo, String titulo, String descripcion, String fecha, double costo,int capacidad,
+    public Deportivo(int codigo, String titulo, String descripcion, String fecha, double costo, int capacidad,
             String tipoDeporte, String equipo1, String equipo2) {
-        super(codigo, titulo, descripcion, fecha, costo,capacidad);
+        super(codigo, titulo, descripcion, fecha, costo, capacidad);
         this.tipoDeporte = tipoDeporte;
         this.equipo1 = equipo1;
         this.equipo2 = equipo2;
@@ -62,12 +64,32 @@ public class Deportivo extends categorias {
     public void setJugadoresEquipo2(ArrayList<String> jugadoresEquipo2) {
         this.jugadoresEquipo2 = jugadoresEquipo2;
     }
+
     public double calcularMulta() {
         // Ejemplo: si evento cancelado y falta 1 día, multa es 50% del costo
         if (isCancelado()) {
             return getCosto() * 0.5;
         }
         return 0.0;
+    }
+
+    public void setNombreEquipo1(String nombre) {
+        this.nombreEquipo1 = nombre;
+        
+
+    }
+
+    public void setNombreEquipo2(String nombre) {
+        this.nombreEquipo2 = nombre;
+
+    }
+
+    public String getNombreEquipo1() {
+        return nombreEquipo1;
+    }
+
+    public String getNombreEquipo2() {
+        return nombreEquipo2;
     }
 
 }

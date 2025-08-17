@@ -46,13 +46,11 @@ public final class ManejoDeEventos {
 
     public boolean crearEvento(categorias Evento) {
 
-        if (revisarFechas(Evento.getFecha()) && revisarCodigo(Evento.getCodigo())) {
+        if (revisarFechas(Evento.getFecha()) && revisarCodigo(Evento.getCodigo()) && Evento.getCosto() > 0) {
             eventos.add(Evento);
             return true;
         }
-
         return false;
-
     }
 
     public categorias buscarEvento(int codigo) {

@@ -2,6 +2,7 @@ package javaticket.AdministradorEventos;
 
 import com.toedter.calendar.JDateChooser;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.*;
@@ -27,61 +28,87 @@ public class EditarEvento extends JFrame {
     private JSpinner spinnerCapacidad;
     private categorias eventoActual;
 
+    // NUEVO: campos para nombre de equipos
+    private JTextField nombreEquipo1TF, nombreEquipo2TF;
+
     public EditarEvento(ManejoDeUsuarios manejo, ManejoDeEventos eventos) {
         this.manejo = manejo;
         this.eventos = eventos;
+        Font paraLetras = new Font("Roboto", Font.BOLD, 16);
+        Font paraTitulos = new Font("Roboto", Font.BOLD, 25);
 
         setSize(650, 700);
-        setTitle("editar evento");
+        setTitle("Editar evento");
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLayout(null);
-        getContentPane().setBackground(Color.LIGHT_GRAY);
+        getContentPane().setBackground(Color.decode("#394B66"));//Azul)?
 
         JLabel codigoL = new JLabel("Codigo");
         codigoL.setBounds(20, 20, 100, 30);
+        codigoL.setFont(paraLetras);
+        codigoL.setForeground(Color.decode("#EAE9D3"));
         add(codigoL);
+
         codigoTF = new JTextField();
         codigoTF.setBounds(80, 20, 80, 30);
+        codigoTF.setFont(paraLetras);
         add(codigoTF);
+
         buscarBtn = new JButton("Buscar");
         buscarBtn.setBounds(180, 20, 100, 30);
+        buscarBtn.setFont(paraLetras);
+        buscarBtn.setBackground(Color.decode("#EAE9D3"));
         add(buscarBtn);
 
         JLabel nombreL = new JLabel("Nombre");
         nombreL.setBounds(20, 70, 100, 25);
+        nombreL.setFont(paraLetras);
+        nombreL.setForeground(Color.decode("#EAE9D3"));
         add(nombreL);
+
         nombre = new JTextField();
         nombre.setBounds(80, 70, 200, 30);
         add(nombre);
 
         JLabel descripcionL = new JLabel("Descripcion");
         descripcionL.setBounds(20, 110, 100, 25);
+        descripcionL.setFont(paraLetras);
+        descripcionL.setForeground(Color.decode("#EAE9D3"));
         add(descripcionL);
+
         descripcion = new JTextField();
         descripcion.setBounds(110, 110, 300, 30);
         add(descripcion);
 
         JLabel fechaL = new JLabel("Fecha");
         fechaL.setBounds(20, 150, 100, 25);
+        fechaL.setFont(paraLetras);
+        fechaL.setForeground(Color.decode("#EAE9D3"));
         add(fechaL);
+        
         fechaS = new JDateChooser();
         fechaS.setDateFormatString("yyyy-MM-dd");
-        //fechaS.setMinSelectableDate(new java.util.Date());
         fechaS.setBounds(80, 150, 150, 30);
         add(fechaS);
 
         JLabel costoL = new JLabel("Costo");
         costoL.setBounds(250, 150, 100, 25);
+        costoL.setFont(paraLetras);
+        costoL.setForeground(Color.decode("#EAE9D3"));
         add(costoL);
+
         costo = new JTextField();
         costo.setBounds(300, 150, 100, 30);
         add(costo);
 
         JLabel capacidadL = new JLabel("Capacidad");
         capacidadL.setBounds(420, 150, 100, 25);
+        capacidadL.setFont(paraLetras);
+        capacidadL.setForeground(Color.decode("#EAE9D3"));
         add(capacidadL);
+
         spinnerCapacidad = new JSpinner(new SpinnerNumberModel(0, 0, 30000, 1));
         spinnerCapacidad.setBounds(500, 150, 80, 25);
         add(spinnerCapacidad);
@@ -93,11 +120,15 @@ public class EditarEvento extends JFrame {
         add(panelExtra);
 
         guardarCambios = new JButton("Guardar cambios");
-        guardarCambios.setBounds(100, 520, 150, 40);
+        guardarCambios.setBounds(120 ,520, 180, 40);
+        guardarCambios.setFont(paraLetras);
+        guardarCambios.setBackground(Color.decode("#EAE9D3"));
         add(guardarCambios);
 
         volver = new JButton("Volver");
-        volver.setBounds(300, 520, 150, 40);
+        volver.setBounds(320, 520, 150, 40);
+        volver.setFont(paraLetras);
+        volver.setBackground(Color.decode("#EAE9D3"));
         add(volver);
 
         buscarBtn.addActionListener(new ActionListener() {
@@ -140,8 +171,11 @@ public class EditarEvento extends JFrame {
             costo.setText(Double.toString(evento.getCosto()));
 
             int maxCapacidad = 30000;
-            if (evento instanceof Deportivo) maxCapacidad = 20000;
-            else if (evento instanceof Musical) maxCapacidad = 25000;
+            if (evento instanceof Deportivo) {
+                maxCapacidad = 20000;
+            } else if (evento instanceof Musical) {
+                maxCapacidad = 25000;
+            }
 
             spinnerCapacidad.setModel(new SpinnerNumberModel(evento.getCapacidad(), 0, maxCapacidad, 1));
 
@@ -162,43 +196,68 @@ public class EditarEvento extends JFrame {
             c2.setSelectedItem(((Deportivo) evento).getTipoDeporte());
             panelExtra.add(c2);
 
-            modeloEquipo1 = new DefaultTableModel(new Object[]{"Equipo 1"}, 0);
-            for (String j : ((Deportivo) evento).getJugadoresEquipo1()) modeloEquipo1.addRow(new Object[]{j});
+            // Nombres de equipos
+            JLabel eq1L = new JLabel("Nombre equipo 1:");
+            eq1L.setBounds(200, 10, 120, 25);
+            panelExtra.add(eq1L);
+
+            nombreEquipo1TF = new JTextField(((Deportivo) evento).getNombreEquipo1());
+            nombreEquipo1TF.setBounds(320, 10, 120, 25);
+            panelExtra.add(nombreEquipo1TF);
+
+            JLabel eq2L = new JLabel("Nombre equipo 2:");
+            eq2L.setBounds(200, 40, 120, 25);
+            panelExtra.add(eq2L);
+
+            nombreEquipo2TF = new JTextField(((Deportivo) evento).getNombreEquipo2());
+            nombreEquipo2TF.setBounds(320, 40, 120, 25);
+            panelExtra.add(nombreEquipo2TF);
+
+            modeloEquipo1 = new DefaultTableModel(new Object[]{((Deportivo) evento).getJugadoresEquipo1()}, 0);
+            for (String j : ((Deportivo) evento).getJugadoresEquipo1()) {
+                modeloEquipo1.addRow(new Object[]{j});
+            }
             tablaEquipo1 = new JTable(modeloEquipo1);
             JScrollPane scroll1 = new JScrollPane(tablaEquipo1);
-            scroll1.setBounds(20, 50, 200, 150);
+            scroll1.setBounds(20, 80, 200, 150);
             panelExtra.add(scroll1);
 
             JButton addE1 = new JButton("Añadir jugador");
-            addE1.setBounds(20, 210, 150, 25);
+            addE1.setBounds(20, 240, 150, 25);
             addE1.addActionListener(e -> modeloEquipo1.addRow(new Object[]{""}));
             panelExtra.add(addE1);
 
             JButton delE1 = new JButton("Eliminar jugador");
-            delE1.setBounds(170, 210, 130, 25);
+            delE1.setBounds(170, 240, 130, 25);
             delE1.addActionListener(e -> {
                 int sel = tablaEquipo1.getSelectedRow();
-                if (sel != -1) modeloEquipo1.removeRow(sel);
+                if (sel != -1) {
+                    modeloEquipo1.removeRow(sel);
+                }
             });
             panelExtra.add(delE1);
 
-            modeloEquipo2 = new DefaultTableModel(new Object[]{"Equipo 2"}, 0);
-            for (String j : ((Deportivo) evento).getJugadoresEquipo2()) modeloEquipo2.addRow(new Object[]{j});
+            modeloEquipo2 = new DefaultTableModel(new Object[]{((Deportivo) evento).getNombreEquipo2()}, 0);
+            for (String j : ((Deportivo) evento).getJugadoresEquipo2()) {
+                modeloEquipo2.addRow(new Object[]{j});
+            }
             tablaEquipo2 = new JTable(modeloEquipo2);
             JScrollPane scroll2 = new JScrollPane(tablaEquipo2);
-            scroll2.setBounds(300, 50, 200, 150);
+            scroll2.setBounds(300, 80, 200, 150);
             panelExtra.add(scroll2);
 
             JButton addE2 = new JButton("Añadir jugador");
-            addE2.setBounds(300, 210, 150, 25);
+            addE2.setBounds(300, 240, 150, 25);
             addE2.addActionListener(e -> modeloEquipo2.addRow(new Object[]{""}));
             panelExtra.add(addE2);
 
             JButton delE2 = new JButton("Eliminar jugador");
-            delE2.setBounds(450, 210, 130, 25);
+            delE2.setBounds(450, 240, 130, 25);
             delE2.addActionListener(e -> {
                 int sel = tablaEquipo2.getSelectedRow();
-                if (sel != -1) modeloEquipo2.removeRow(sel);
+                if (sel != -1) {
+                    modeloEquipo2.removeRow(sel);
+                }
             });
             panelExtra.add(delE2);
 
@@ -210,8 +269,9 @@ public class EditarEvento extends JFrame {
             panelExtra.add(c2);
 
             modeloMontaje = new DefaultTableModel(new Object[]{"Equipo de Montaje"}, 0);
-            for (String p : ((Musical) evento).getEquipoMontaje()) 
+            for (String p : ((Musical) evento).getEquipoMontaje()) {
                 modeloMontaje.addRow(new Object[]{p});
+            }
             tablaMontaje = new JTable(modeloMontaje);
             JScrollPane scroll = new JScrollPane(tablaMontaje);
             scroll.setBounds(20, 50, 300, 150);
@@ -226,7 +286,9 @@ public class EditarEvento extends JFrame {
             del.setBounds(180, 210, 150, 25);
             del.addActionListener(e -> {
                 int sel = tablaMontaje.getSelectedRow();
-                if (sel != -1) modeloMontaje.removeRow(sel);
+                if (sel != -1) {
+                    modeloMontaje.removeRow(sel);
+                }
             });
             panelExtra.add(del);
 
@@ -265,22 +327,19 @@ public class EditarEvento extends JFrame {
             calSel.set(Calendar.SECOND, 0);
             calSel.set(Calendar.MILLISECOND, 0);
 
-            
-
             boolean esHoy = calHoy.get(Calendar.YEAR) == calSel.get(Calendar.YEAR)
                     && calHoy.get(Calendar.MONTH) == calSel.get(Calendar.MONTH)
                     && calHoy.get(Calendar.DAY_OF_MONTH) == calSel.get(Calendar.DAY_OF_MONTH);
-            
-            if (esHoy)
-            {
-                 JOptionPane.showMessageDialog(this, "No puedes elegir la fecha de hoy!");
+
+            if (esHoy) {
+                JOptionPane.showMessageDialog(this, "No puedes elegir la fecha de hoy!");
                 return;
             }
-            
+
             if (fechaSeleccionada.before(calHoy.getTime())) {
                 eventoActual.setRealizado(true);
             }
-            
+
             eventoActual.setTitulo(nombre.getText());
             eventoActual.setDescripcion(descripcion.getText());
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -289,23 +348,30 @@ public class EditarEvento extends JFrame {
 
             int capacidadValor = (Integer) spinnerCapacidad.getValue();
             eventoActual.setCapacidad(capacidadValor);
-            
 
             if (eventoActual instanceof Deportivo) {
                 Deportivo dep = (Deportivo) eventoActual;
                 dep.setTipoDeporte((String) c2.getSelectedItem());
 
+                // actualizar nombres equipos
+                dep.setNombreEquipo1(nombreEquipo1TF.getText().trim());
+                dep.setNombreEquipo2(nombreEquipo2TF.getText().trim());
+
                 ArrayList<String> eq1 = new ArrayList<>();
                 for (int i = 0; i < modeloEquipo1.getRowCount(); i++) {
                     String nombre = (String) modeloEquipo1.getValueAt(i, 0);
-                    if (nombre != null && !nombre.trim().isEmpty()) eq1.add(nombre.trim());
+                    if (nombre != null && !nombre.trim().isEmpty()) {
+                        eq1.add(nombre.trim());
+                    }
                 }
                 dep.setJugadoresEquipo1(eq1);
 
                 ArrayList<String> eq2 = new ArrayList<>();
                 for (int i = 0; i < modeloEquipo2.getRowCount(); i++) {
                     String nombre = (String) modeloEquipo2.getValueAt(i, 0);
-                    if (nombre != null && !nombre.trim().isEmpty()) eq2.add(nombre.trim());
+                    if (nombre != null && !nombre.trim().isEmpty()) {
+                        eq2.add(nombre.trim());
+                    }
                 }
                 dep.setJugadoresEquipo2(eq2);
 
@@ -316,7 +382,9 @@ public class EditarEvento extends JFrame {
                 ArrayList<String> equipo = new ArrayList<>();
                 for (int i = 0; i < modeloMontaje.getRowCount(); i++) {
                     String nombre = (String) modeloMontaje.getValueAt(i, 0);
-                    if (nombre != null && !nombre.trim().isEmpty()) equipo.add(nombre.trim());
+                    if (nombre != null && !nombre.trim().isEmpty()) {
+                        equipo.add(nombre.trim());
+                    }
                 }
                 mus.setEquipoMontaje(equipo);
 
