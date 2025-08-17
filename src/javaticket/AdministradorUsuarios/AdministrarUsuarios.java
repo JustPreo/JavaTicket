@@ -5,6 +5,7 @@
 package javaticket.AdministradorUsuarios;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javaticket.Manejo.ManejoDeEventos;
@@ -18,38 +19,52 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
  * @author user
  */
 public class AdministrarUsuarios extends JFrame {
-    
+
     private ManejoDeEventos eventos;
     private ManejoDeUsuarios manejo;
     private JButton Crear, Eliminar, Editar, Volver;
-    
+
     public AdministrarUsuarios(ManejoDeUsuarios manejo, ManejoDeEventos eventos) {
         this.manejo = manejo;
         this.eventos = eventos;
-        
+
         setSize(500, 500);
         setTitle("Menu Principal");
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(null);
-        getContentPane().setBackground(Color.cyan);
+        getContentPane().setBackground(Color.decode("#394B66"));//Azul)?
+
+        Font paraLetras = new Font("Roboto", Font.BOLD, 16);
 
         //Botones
         Crear = new JButton("Crear Usuario");
         Crear.setBounds(165, 50, 175, 50);
+        Crear.setFont(paraLetras);
+        Crear.setBackground(Color.decode("#EAE9D3"));
+        Crear.setForeground(Color.black);
         add(Crear);
-        
+
         Eliminar = new JButton("Eliminar Usuario");
         Eliminar.setBounds(165, 125, 175, 50);
+        Eliminar.setFont(paraLetras);
+        Eliminar.setBackground(Color.decode("#EAE9D3"));
+        Eliminar.setForeground(Color.black);
         add(Eliminar);
-        
+
         Editar = new JButton("Editar Usuario");
         Editar.setBounds(165, 200, 175, 50);
+        Editar.setFont(paraLetras);
+        Editar.setBackground(Color.decode("#EAE9D3"));
+        Editar.setForeground(Color.black);
         add(Editar);
-        
+
         Volver = new JButton("Volver");
         Volver.setBounds(165, 275, 175, 50);
+        Volver.setFont(paraLetras);
+        Volver.setBackground(Color.decode("#EAE9D3"));
+        Volver.setForeground(Color.black);
         add(Volver);
 
         //Action Listeners
@@ -59,28 +74,28 @@ public class AdministrarUsuarios extends JFrame {
                 dispose();
             }
         });
-        
+
         Eliminar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 new EliminarUsuario(manejo, eventos).setVisible(true);
                 dispose();
             }
         });
-        
+
         Editar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 new EditarUsuario(manejo, eventos).setVisible(true);
                 dispose();
             }
         });
-        
+
         Volver.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                new MenuPrincipal(manejo,eventos).setVisible(true);
+                new MenuPrincipal(manejo, eventos).setVisible(true);
                 dispose();
             }
         });
-        
+
     }
-    
+
 }

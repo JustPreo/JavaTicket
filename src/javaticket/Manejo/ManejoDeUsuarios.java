@@ -100,7 +100,7 @@ public final class ManejoDeUsuarios {
 
     public UsuarioTemplate buscarU(String username) {
         for (UsuarioTemplate U : usuarios) {
-            if (U.getUserame().equals(username)) {
+            if (U.getUserame().equalsIgnoreCase(username)) {
                 return U;
             }
         }

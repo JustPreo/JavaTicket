@@ -27,6 +27,7 @@ public class EditarEvento extends JFrame {
     private JSpinner spinnerConvertidos;
     private JSpinner spinnerCapacidad;
     private categorias eventoActual;
+    private Font paraLetras;
 
     // NUEVO: campos para nombre de equipos
     private JTextField nombreEquipo1TF, nombreEquipo2TF;
@@ -34,7 +35,7 @@ public class EditarEvento extends JFrame {
     public EditarEvento(ManejoDeUsuarios manejo, ManejoDeEventos eventos) {
         this.manejo = manejo;
         this.eventos = eventos;
-        Font paraLetras = new Font("Roboto", Font.BOLD, 16);
+        paraLetras = new Font("Roboto", Font.BOLD, 16);
         Font paraTitulos = new Font("Roboto", Font.BOLD, 25);
 
         setSize(650, 700);
@@ -70,6 +71,7 @@ public class EditarEvento extends JFrame {
 
         nombre = new JTextField();
         nombre.setBounds(80, 70, 200, 30);
+        nombre.setFont(paraLetras);
         add(nombre);
 
         JLabel descripcionL = new JLabel("Descripcion");
@@ -80,6 +82,7 @@ public class EditarEvento extends JFrame {
 
         descripcion = new JTextField();
         descripcion.setBounds(110, 110, 300, 30);
+        descripcion.setFont(paraLetras);
         add(descripcion);
 
         JLabel fechaL = new JLabel("Fecha");
@@ -87,7 +90,7 @@ public class EditarEvento extends JFrame {
         fechaL.setFont(paraLetras);
         fechaL.setForeground(Color.decode("#EAE9D3"));
         add(fechaL);
-        
+
         fechaS = new JDateChooser();
         fechaS.setDateFormatString("yyyy-MM-dd");
         fechaS.setBounds(80, 150, 150, 30);
@@ -101,6 +104,7 @@ public class EditarEvento extends JFrame {
 
         costo = new JTextField();
         costo.setBounds(300, 150, 100, 30);
+        costo.setFont(paraLetras);
         add(costo);
 
         JLabel capacidadL = new JLabel("Capacidad");
@@ -111,6 +115,7 @@ public class EditarEvento extends JFrame {
 
         spinnerCapacidad = new JSpinner(new SpinnerNumberModel(0, 0, 30000, 1));
         spinnerCapacidad.setBounds(500, 150, 80, 25);
+        spinnerCapacidad.setFont(paraLetras);
         add(spinnerCapacidad);
 
         panelExtra = new JPanel();
@@ -120,7 +125,7 @@ public class EditarEvento extends JFrame {
         add(panelExtra);
 
         guardarCambios = new JButton("Guardar cambios");
-        guardarCambios.setBounds(120 ,520, 180, 40);
+        guardarCambios.setBounds(120, 520, 180, 40);
         guardarCambios.setFont(paraLetras);
         guardarCambios.setBackground(Color.decode("#EAE9D3"));
         add(guardarCambios);
@@ -154,12 +159,19 @@ public class EditarEvento extends JFrame {
 
     private void buscarEvento() {
         try {
+            
             int codigo = Integer.parseInt(codigoTF.getText());
             categorias evento = eventos.buscarEvento(codigo);
 
             if (evento == null) {
                 JOptionPane.showMessageDialog(this, "No se encontro evento con ese codigo.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
+            }
+            
+            if (evento.isCancelado())
+            {
+            JOptionPane.showMessageDialog(this, "No se puede editar un evento cancelado!", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
             }
 
             this.eventoActual = evento;
@@ -168,6 +180,7 @@ public class EditarEvento extends JFrame {
             descripcion.setText(evento.getDescripcion());
             DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             fechaS.setDate(format.parse(evento.getFecha()));
+            fechaS.setEnabled(true);
             costo.setText(Double.toString(evento.getCosto()));
 
             int maxCapacidad = 30000;
@@ -178,7 +191,11 @@ public class EditarEvento extends JFrame {
             }
 
             spinnerCapacidad.setModel(new SpinnerNumberModel(evento.getCapacidad(), 0, maxCapacidad, 1));
-
+            
+            if(evento.isRealizado())
+            {
+            fechaS.setEnabled(false);
+            }
             mostrarPanelExtra(evento);
 
         } catch (Exception e) {
@@ -194,26 +211,31 @@ public class EditarEvento extends JFrame {
             c2 = new JComboBox<>(deportes);
             c2.setBounds(20, 10, 150, 25);
             c2.setSelectedItem(((Deportivo) evento).getTipoDeporte());
+            c2.setEnabled(false);
             panelExtra.add(c2);
 
             // Nombres de equipos
-            JLabel eq1L = new JLabel("Nombre equipo 1:");
+            JLabel eq1L = new JLabel("Equipo 1:");
             eq1L.setBounds(200, 10, 120, 25);
+            eq1L.setFont(paraLetras);
             panelExtra.add(eq1L);
 
             nombreEquipo1TF = new JTextField(((Deportivo) evento).getNombreEquipo1());
             nombreEquipo1TF.setBounds(320, 10, 120, 25);
+            nombreEquipo1TF.setFont(paraLetras);
             panelExtra.add(nombreEquipo1TF);
 
-            JLabel eq2L = new JLabel("Nombre equipo 2:");
+            JLabel eq2L = new JLabel("Equipo 2:");
             eq2L.setBounds(200, 40, 120, 25);
+            eq2L.setFont(paraLetras);
             panelExtra.add(eq2L);
 
             nombreEquipo2TF = new JTextField(((Deportivo) evento).getNombreEquipo2());
             nombreEquipo2TF.setBounds(320, 40, 120, 25);
+            nombreEquipo2TF.setFont(paraLetras);
             panelExtra.add(nombreEquipo2TF);
 
-            modeloEquipo1 = new DefaultTableModel(new Object[]{((Deportivo) evento).getJugadoresEquipo1()}, 0);
+            modeloEquipo1 = new DefaultTableModel(new Object[]{"Jugadores Equipo 1"}, 0);
             for (String j : ((Deportivo) evento).getJugadoresEquipo1()) {
                 modeloEquipo1.addRow(new Object[]{j});
             }
@@ -222,13 +244,17 @@ public class EditarEvento extends JFrame {
             scroll1.setBounds(20, 80, 200, 150);
             panelExtra.add(scroll1);
 
-            JButton addE1 = new JButton("Añadir jugador");
+            JButton addE1 = new JButton("Añadir");
             addE1.setBounds(20, 240, 150, 25);
+            addE1.setFont(paraLetras);
+            addE1.setBackground(Color.decode("#EAE9D3"));
             addE1.addActionListener(e -> modeloEquipo1.addRow(new Object[]{""}));
             panelExtra.add(addE1);
 
-            JButton delE1 = new JButton("Eliminar jugador");
+            JButton delE1 = new JButton("Eliminar");
             delE1.setBounds(170, 240, 130, 25);
+            delE1.setFont(paraLetras);
+            delE1.setBackground(Color.decode("#EAE9D3"));
             delE1.addActionListener(e -> {
                 int sel = tablaEquipo1.getSelectedRow();
                 if (sel != -1) {
@@ -237,7 +263,7 @@ public class EditarEvento extends JFrame {
             });
             panelExtra.add(delE1);
 
-            modeloEquipo2 = new DefaultTableModel(new Object[]{((Deportivo) evento).getNombreEquipo2()}, 0);
+            modeloEquipo2 = new DefaultTableModel(new Object[]{"Jugadores Equipo 2"}, 0);
             for (String j : ((Deportivo) evento).getJugadoresEquipo2()) {
                 modeloEquipo2.addRow(new Object[]{j});
             }
@@ -246,13 +272,17 @@ public class EditarEvento extends JFrame {
             scroll2.setBounds(300, 80, 200, 150);
             panelExtra.add(scroll2);
 
-            JButton addE2 = new JButton("Añadir jugador");
+            JButton addE2 = new JButton("Añadir");
             addE2.setBounds(300, 240, 150, 25);
+            addE2.setFont(paraLetras);
+            addE2.setBackground(Color.decode("#EAE9D3"));
             addE2.addActionListener(e -> modeloEquipo2.addRow(new Object[]{""}));
             panelExtra.add(addE2);
 
-            JButton delE2 = new JButton("Eliminar jugador");
+            JButton delE2 = new JButton("Eliminar");
             delE2.setBounds(450, 240, 130, 25);
+            delE2.setFont(paraLetras);
+            delE2.setBackground(Color.decode("#EAE9D3"));
             delE2.addActionListener(e -> {
                 int sel = tablaEquipo2.getSelectedRow();
                 if (sel != -1) {
@@ -266,6 +296,7 @@ public class EditarEvento extends JFrame {
             c2 = new JComboBox<>(tipos);
             c2.setBounds(20, 10, 150, 25);
             c2.setSelectedItem(((Musical) evento).getTipoMusica());
+            c2.setEnabled(false);
             panelExtra.add(c2);
 
             modeloMontaje = new DefaultTableModel(new Object[]{"Equipo de Montaje"}, 0);
@@ -279,11 +310,15 @@ public class EditarEvento extends JFrame {
 
             JButton add = new JButton("Añadir persona");
             add.setBounds(20, 210, 150, 25);
+            add.setFont(paraLetras);
+            add.setBackground(Color.decode("#EAE9D3"));
             add.addActionListener(e -> modeloMontaje.addRow(new Object[]{""}));
             panelExtra.add(add);
 
             JButton del = new JButton("Eliminar persona");
             del.setBounds(180, 210, 150, 25);
+            del.setFont(paraLetras);
+            del.setBackground(Color.decode("#EAE9D3"));
             del.addActionListener(e -> {
                 int sel = tablaMontaje.getSelectedRow();
                 if (sel != -1) {
@@ -299,6 +334,7 @@ public class EditarEvento extends JFrame {
 
             spinnerConvertidos = new JSpinner(new SpinnerNumberModel(((Religioso) evento).getConvertidos(), 0, 30000, 1));
             spinnerConvertidos.setBounds(120, 10, 80, 25);
+            spinnerConvertidos.setFont(paraLetras);
             panelExtra.add(spinnerConvertidos);
         }
 

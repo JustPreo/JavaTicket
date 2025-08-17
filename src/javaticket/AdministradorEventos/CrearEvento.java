@@ -249,6 +249,12 @@ public class CrearEvento extends JFrame {
             String fechaStr = new SimpleDateFormat("yyyy-MM-dd").format(fechaS.getDate());
             double costoD = parseDouble(costo.getText());
             int cantidadP = parseInt(cantidad.getText());
+            
+            if (cantidadP < 0)
+            {
+                JOptionPane.showMessageDialog(null, "No puedes tener cantidad de personas negativas","Error",JOptionPane.ERROR_MESSAGE);
+            return false;
+            }
 
             categorias evento = null;
 

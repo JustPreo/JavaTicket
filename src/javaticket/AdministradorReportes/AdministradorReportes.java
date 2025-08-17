@@ -5,6 +5,7 @@
 package javaticket.AdministradorReportes;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,30 +33,50 @@ public class AdministradorReportes extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(null);
-        getContentPane().setBackground(Color.cyan);
+        getContentPane().setBackground(Color.decode("#394B66"));
 
+        Font paraLetras = new Font("Roboto", Font.BOLD, 16);
         Realizados = new JButton("Eventos Realizados");
         Realizados.setBounds(165, 50, 175, 50);
+        Realizados.setFont(paraLetras);
+        Realizados.setBackground(Color.decode("#EAE9D3"));
+        Realizados.setForeground(Color.black);
         add(Realizados);
 
         Futuros = new JButton("Eventos Futuros");
         Futuros.setBounds(165, 125, 175, 50);
+        Futuros.setFont(paraLetras);
+        Futuros.setBackground(Color.decode("#EAE9D3"));
+        Futuros.setForeground(Color.black);
         add(Futuros);
 
         Cancelados = new JButton("Eventos Cancelados");
         Cancelados.setBounds(165, 200, 175, 50);
+        Cancelados.setFont(paraLetras);
+        Cancelados.setBackground(Color.decode("#EAE9D3"));
+        Cancelados.setForeground(Color.black);
         add(Cancelados);
 
         Fecha = new JButton("Eventos por fecha");
         Fecha.setBounds(165, 275, 175, 50);
+        Fecha.setFont(paraLetras);
+        Fecha.setBackground(Color.decode("#EAE9D3"));
+        Fecha.setForeground(Color.black);
         add(Fecha);
 
         Perfil = new JButton("Perfil Usuario");
         Perfil.setBounds(165, 350, 175, 50);
+        Perfil.setFont(paraLetras);
+        Perfil.setBackground(Color.decode("#EAE9D3"));
+        Perfil.setForeground(Color.black);
         add(Perfil);
 
         Volver = new JButton("Volver");
         Volver.setBounds(165, 425, 175, 50);
+
+        Volver.setFont(paraLetras);
+        Volver.setBackground(Color.decode("#EAE9D3"));
+        Volver.setForeground(Color.black);
         add(Volver);
 
         //Action Listeners

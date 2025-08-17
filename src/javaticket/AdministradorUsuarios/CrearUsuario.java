@@ -10,6 +10,7 @@ package javaticket.AdministradorUsuarios;
  */
 import javax.swing.*;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javaticket.Login;
@@ -37,61 +38,86 @@ public class CrearUsuario extends JFrame {
     public CrearUsuario(ManejoDeUsuarios manejo, ManejoDeEventos eventos) {
         this.manejo = manejo;
         this.eventos = eventos;
+        Font paraLetras = new Font("Roboto", Font.BOLD, 16);
         setSize(500, 500);
         setTitle("Crear Usuario");
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(null);
-        getContentPane().setBackground(Color.LIGHT_GRAY);
+        getContentPane().setBackground(Color.decode("#394B66"));
 
-        //Labels
+        // Labels
         nombreL = new JLabel("Nombre completo");
         nombreL.setBounds(30, 30, 150, 25);
+        nombreL.setFont(paraLetras);
+        nombreL.setForeground(Color.decode("#EAE9D3"));
         add(nombreL);
-
-        nombreTF = new JTextField();
-        nombreTF.setBounds(30, 55, 150, 30);
-        add(nombreTF);
 
         usernameL = new JLabel("Username (único)");
         usernameL.setBounds(30, 90, 150, 25);
+        usernameL.setFont(paraLetras);
+        usernameL.setForeground(Color.decode("#EAE9D3"));
         add(usernameL);
-
-        usernameTF = new JTextField();
-        usernameTF.setBounds(30, 115, 150, 30);
-        add(usernameTF);
 
         passwordL = new JLabel("Password");
         passwordL.setBounds(30, 150, 150, 25);
+        passwordL.setFont(paraLetras);
+        passwordL.setForeground(Color.decode("#EAE9D3"));
         add(passwordL);
-
-        passwordPF = new JPasswordField();
-        passwordPF.setBounds(30, 175, 150, 30);
-        add(passwordPF);
 
         edadL = new JLabel("Edad");
         edadL.setBounds(250, 30, 150, 25);
+        edadL.setFont(paraLetras);
+        edadL.setForeground(Color.decode("#EAE9D3"));
         add(edadL);
-
-        edadTF = new JTextField();
-        edadTF.setBounds(250, 55, 100, 30);
-        add(edadTF);
 
         tipoL = new JLabel("Tipo de usuario");
         tipoL.setBounds(250, 90, 150, 25);
+        tipoL.setFont(paraLetras);
+        tipoL.setForeground(Color.decode("#EAE9D3"));
         add(tipoL);
 
+        // Campos de texto
+        nombreTF = new JTextField();
+        nombreTF.setBounds(30, 55, 150, 30);
+        nombreTF.setFont(paraLetras);
+        add(nombreTF);
+
+        usernameTF = new JTextField();
+        usernameTF.setBounds(30, 115, 150, 30);
+        usernameTF.setFont(paraLetras);
+        add(usernameTF);
+
+        passwordPF = new JPasswordField();
+        passwordPF.setBounds(30, 175, 150, 30);
+        passwordPF.setFont(paraLetras);
+        add(passwordPF);
+
+        edadTF = new JTextField();
+        edadTF.setBounds(250, 55, 100, 30);
+        edadTF.setFont(paraLetras);
+        add(edadTF);
+
+        // ComboBox
         tipoCB = new JComboBox<>(TipoUsuario.values());
         tipoCB.setBounds(250, 115, 130, 30);
+        tipoCB.setFont(paraLetras);
         add(tipoCB);
 
+        // Botones
         crearBtn = new JButton("Crear Usuario");
         crearBtn.setBounds(160, 300, 150, 40);
+        crearBtn.setFont(paraLetras);
+        crearBtn.setBackground(Color.decode("#EAE9D3"));
+        crearBtn.setForeground(Color.black);
         add(crearBtn);
 
         volverBtn = new JButton("Volver");
         volverBtn.setBounds(160, 360, 150, 40);
+        volverBtn.setFont(paraLetras);
+        volverBtn.setBackground(Color.decode("#EAE9D3"));
+        volverBtn.setForeground(Color.black);
         add(volverBtn);
 
         volverBtn.addActionListener(new ActionListener() {

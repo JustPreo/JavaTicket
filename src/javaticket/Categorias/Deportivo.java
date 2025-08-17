@@ -7,8 +7,7 @@ public class Deportivo extends categorias {
 
     private String tipoDeporte;  // String
     private final int capacidadMaxima = 20000;
-    private String equipo1;
-    private String equipo2;
+    
     private String nombreEquipo1;
     private String nombreEquipo2;
     private ArrayList<String> jugadoresEquipo1;
@@ -22,10 +21,11 @@ public class Deportivo extends categorias {
             String tipoDeporte, String equipo1, String equipo2) {
         super(codigo, titulo, descripcion, fecha, costo, capacidad);
         this.tipoDeporte = tipoDeporte;
-        this.equipo1 = equipo1;
-        this.equipo2 = equipo2;
+        this.nombreEquipo1 = equipo1;
+        this.nombreEquipo2 = equipo2;
         jugadoresEquipo1 = new ArrayList<>();
         jugadoresEquipo2 = new ArrayList<>();
+        
 
     }
 
@@ -36,15 +36,6 @@ public class Deportivo extends categorias {
     public String getTipoDeporte() {
         return tipoDeporte;
     }
-
-    public String getEquipo1() {
-        return equipo1;
-    }
-
-    public String getEquipo2() {
-        return equipo2;
-    }
-
     public void setTipoDeporte(String tipoDeporte) {
         this.tipoDeporte = tipoDeporte;
     }

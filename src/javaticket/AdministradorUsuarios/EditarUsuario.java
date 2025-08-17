@@ -6,6 +6,7 @@ package javaticket.AdministradorUsuarios;
 
 import javax.swing.*;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javaticket.Manejo.ManejoDeEventos;
@@ -40,70 +41,99 @@ public class EditarUsuario extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(null);
-        getContentPane().setBackground(Color.LIGHT_GRAY);
-        
-        //Los TextField con sus Label
-        
+         getContentPane().setBackground(Color.decode("#394B66"));
+         Font paraLetras = new Font("Roboto", Font.BOLD, 16);
+
+        // Labels
         buscarL = new JLabel("Buscar por Username:");
         buscarL.setBounds(30, 20, 150, 25);
+        buscarL.setFont(paraLetras);
+        buscarL.setForeground(Color.decode("#EAE9D3"));
         add(buscarL);
-
-        buscarTF = new JTextField();
-        buscarTF.setBounds(180, 20, 150, 25);
-        add(buscarTF);
-
-        buscarBtn = new JButton("Buscar");
-        buscarBtn.setBounds(340, 20, 100, 25);
-        add(buscarBtn);
 
         nombreL = new JLabel("Nombre completo:");
         nombreL.setBounds(30, 70, 150, 25);
+        nombreL.setFont(paraLetras);
+        nombreL.setForeground(Color.decode("#EAE9D3"));
         add(nombreL);
-
-        nombreTF = new JTextField();
-        nombreTF.setBounds(180, 70, 200, 25);
-        add(nombreTF);
 
         usernameL = new JLabel("Username:");
         usernameL.setBounds(30, 110, 150, 25);
+        usernameL.setFont(paraLetras);
+        usernameL.setForeground(Color.decode("#EAE9D3"));
         add(usernameL);
-
-        usernameTF = new JTextField();
-        usernameTF.setBounds(180, 110, 200, 25);
-        usernameTF.setEditable(false); 
-        add(usernameTF);
 
         passwordL = new JLabel("Password:");
         passwordL.setBounds(30, 150, 150, 25);
+        passwordL.setFont(paraLetras);
+        passwordL.setForeground(Color.decode("#EAE9D3"));
         add(passwordL);
-
-        passwordPF = new JPasswordField();
-        passwordPF.setBounds(180, 150, 200, 25);
-        add(passwordPF);
 
         edadL = new JLabel("Edad:");
         edadL.setBounds(30, 190, 150, 25);
+        edadL.setFont(paraLetras);
+        edadL.setForeground(Color.decode("#EAE9D3"));
         add(edadL);
-
-        edadTF = new JTextField();
-        edadTF.setBounds(180, 190, 200, 25);
-        add(edadTF);
 
         tipoL = new JLabel("Tipo de usuario:");
         tipoL.setBounds(30, 230, 150, 25);
+        tipoL.setFont(paraLetras);
+        tipoL.setForeground(Color.decode("#EAE9D3"));
         add(tipoL);
+
+        // TextFields y ComboBox
+        buscarTF = new JTextField();
+        buscarTF.setBounds(180, 20, 150, 25);
+        buscarTF.setFont(paraLetras);
+        add(buscarTF);
+
+        nombreTF = new JTextField();
+        nombreTF.setBounds(180, 70, 200, 25);
+        nombreTF.setFont(paraLetras);
+        add(nombreTF);
+
+        usernameTF = new JTextField();
+        usernameTF.setBounds(180, 110, 200, 25);
+        usernameTF.setFont(paraLetras);
+        usernameTF.setEditable(false);
+        add(usernameTF);
+
+        passwordPF = new JPasswordField();
+        passwordPF.setBounds(180, 150, 200, 25);
+        passwordPF.setFont(paraLetras);
+        add(passwordPF);
+
+        edadTF = new JTextField();
+        edadTF.setBounds(180, 190, 200, 25);
+        edadTF.setFont(paraLetras);
+        add(edadTF);
 
         tipoCB = new JComboBox<>(TipoUsuario.values());
         tipoCB.setBounds(180, 230, 200, 25);
+        tipoCB.setFont(paraLetras);
         tipoCB.setEnabled(false);
         add(tipoCB);
 
+        // Botones
+        buscarBtn = new JButton("Buscar");
+        buscarBtn.setBounds(340, 20, 100, 25);
+        buscarBtn.setFont(paraLetras);
+        buscarBtn.setBackground(Color.decode("#EAE9D3"));
+        buscarBtn.setForeground(Color.black);
+        add(buscarBtn);
+
         guardarBtn = new JButton("Guardar Cambios");
-        guardarBtn.setBounds(130, 300, 150, 40);
+        guardarBtn.setBounds(110, 300, 170, 40);
+        guardarBtn.setFont(paraLetras);
+        guardarBtn.setBackground(Color.decode("#EAE9D3"));
+        guardarBtn.setForeground(Color.black);
         add(guardarBtn);
 
         volverBtn = new JButton("Volver");
         volverBtn.setBounds(300, 300, 100, 40);
+        volverBtn.setFont(paraLetras);
+        volverBtn.setBackground(Color.decode("#EAE9D3"));
+        volverBtn.setForeground(Color.black);
         add(volverBtn);
 
         // ActionListeners con clases anónimas
@@ -145,6 +175,8 @@ public class EditarUsuario extends JFrame {
         usernameTF.setText(u.getUserame());
         passwordPF.setText(u.getPassword());
         edadTF.setText(String.valueOf(u.getEdad()));
+        usernameTF.setEditable(false);
+        usernameTF.setEnabled(false);
 
         // Asignar el tipo al combo según la clase del usuario
         switch (u.getClass().getSimpleName()) {

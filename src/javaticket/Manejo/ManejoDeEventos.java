@@ -50,6 +50,11 @@ public final class ManejoDeEventos {
             eventos.add(Evento);
             return true;
         }
+        if (Evento.getCosto() <= 0)
+        {
+        JOptionPane.showMessageDialog(null, "ERROR:No puedes tener costos negativos o iguales a 0");
+        
+        }
         return false;
     }
 

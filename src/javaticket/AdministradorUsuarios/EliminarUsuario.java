@@ -10,6 +10,7 @@ package javaticket.AdministradorUsuarios;
  */
 import javax.swing.*;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javaticket.Manejo.ManejoDeEventos;
@@ -26,29 +27,43 @@ public class EliminarUsuario extends JFrame {
     public EliminarUsuario(ManejoDeUsuarios manejo, ManejoDeEventos eventos) {
         this.manejo = manejo;
         this.eventos = eventos;
+
+        Font paraLetras = new Font("Roboto", Font.BOLD, 16);
+
         setSize(500, 500);
         setTitle("Eliminar Usuario");
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(null);
-        getContentPane().setBackground(Color.LIGHT_GRAY);
+        getContentPane().setBackground(Color.decode("#394B66"));
 
-        // Labels
-        usernameL = new JLabel("Username del usuario a eliminar");
-        usernameL.setBounds(30, 30, 250, 25);
+        // Label
+        usernameL = new JLabel("Username del usuario");
+        usernameL.setBounds(50, 100, 250, 30);
+        usernameL.setFont(paraLetras);
+        usernameL.setForeground(Color.decode("#EAE9D3"));
         add(usernameL);
 
+        // TextField
         usernameTF = new JTextField();
-        usernameTF.setBounds(30, 60, 200, 30);
+        usernameTF.setBounds(250, 100, 150, 30);
+        usernameTF.setFont(paraLetras);
         add(usernameTF);
 
         // Botones
         eliminarBtn = new JButton("Eliminar Usuario");
-        eliminarBtn.setBounds(120, 120, 150, 40);
+        eliminarBtn.setBounds(170, 200, 150, 50);
+        eliminarBtn.setFont(paraLetras);
+        eliminarBtn.setBackground(Color.decode("#EAE9D3"));
+        eliminarBtn.setForeground(Color.black);
         add(eliminarBtn);
+
         volverBtn = new JButton("Volver");
-        volverBtn.setBounds(120, 180, 150, 40);
+        volverBtn.setBounds(170, 300, 150, 50);
+        volverBtn.setFont(paraLetras);
+        volverBtn.setBackground(Color.decode("#EAE9D3"));
+        volverBtn.setForeground(Color.black);
         add(volverBtn);
 
         volverBtn.addActionListener(new ActionListener() {
@@ -78,8 +93,8 @@ public class EliminarUsuario extends JFrame {
                 return;
             }
 
-            int confirmacion = JOptionPane.showConfirmDialog(null, 
-            "Esta seguro que desea eliminar al usuario \"" + username + "\"?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION
+            int confirmacion = JOptionPane.showConfirmDialog(null,
+                    "Esta seguro que desea eliminar al usuario \"" + username + "\"?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION
             );
 
             if (confirmacion == JOptionPane.YES_OPTION) {

@@ -34,7 +34,8 @@ public class EventosFuturo extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLayout(null);
-        getContentPane().setBackground(Color.LIGHT_GRAY);
+        getContentPane().setBackground(Color.decode("#394B66"));
+        Font paraLetras = new Font("Roboto", Font.BOLD, 16);
 
         // Tabla
         String[] columnas = {"CODIGO", "TIPO", "TITULO", "FECHA", "MONTO"};
@@ -49,7 +50,7 @@ public class EventosFuturo extends JFrame {
         add(scroll);
         lblEstadisticas = new JTextArea();
         lblEstadisticas.setBounds(50, 420, 700, 150);
-        lblEstadisticas.setFont(new Font("Arial", Font.PLAIN, 14));
+        lblEstadisticas.setFont(paraLetras);
         lblEstadisticas.setForeground(Color.BLACK);
         lblEstadisticas.setEditable(false);
         lblEstadisticas.setBackground(getContentPane().getBackground()); 
@@ -60,7 +61,10 @@ public class EventosFuturo extends JFrame {
         cargarEventosFuturos();
         
         Volver = new JButton("Volver");
-        Volver.setBounds(165, 425, 175, 50);
+        Volver.setBounds(325, 580, 150, 40);
+        Volver.setFont(paraLetras);
+        Volver.setBackground(Color.decode("#EAE9D3"));
+        Volver.setForeground(Color.black);
         add(Volver);
         
         Volver.addActionListener(new ActionListener() {
@@ -120,11 +124,11 @@ public class EventosFuturo extends JFrame {
                     break;
                 case "RELIGIOSO":
                     Religiosos++;
-                    ReligiososTC += evento.getCosto();
+                    ReligiososTC += evento.getCosto()+(2000);;
                     break;
                 case "MUSICAL":
                     Musicales++;
-                    MusicalesTC += evento.getCosto();
+                    MusicalesTC += evento.getCosto()+(evento.getCosto()*0.3);
                     break;
             }
         }
@@ -134,11 +138,6 @@ public class EventosFuturo extends JFrame {
                 + " \nMusicales: " + Musicales + " eventos | Monto total: Lps." + String.format("%.2f", MusicalesTC);
 
         lblEstadisticas.setText(textoEstadisticas);
-        
-        if (lblEstadisticas.getText().equals(""))
-        {
-        lblEstadisticas.setText("No hay estadisticas que mostrar");
-        }
     }
 
 }

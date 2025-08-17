@@ -27,6 +27,9 @@ public class EliminarEvento extends JFrame {
     public EliminarEvento(ManejoDeUsuarios manejo, ManejoDeEventos eventos) {
         this.manejo = manejo;
         this.eventos = eventos;
+        
+        Font paraLetras = new Font("Roboto", Font.BOLD, 16);
+        Font paraTitulos = new Font("Roboto", Font.BOLD, 25);
 
         setSize(500, 500);
         setTitle("Eliminar Evento");
@@ -34,22 +37,31 @@ public class EliminarEvento extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setLayout(null);
-        getContentPane().setBackground(Color.cyan);
+        getContentPane().setBackground(Color.decode("#394B66"));//Azul)?
 
         codigoL = new JLabel("Ingrese código del evento:");
         codigoL.setBounds(50, 100, 200, 30);
+        codigoL.setFont(paraLetras);
+        codigoL.setForeground(Color.decode("#EAE9D3"));
         add(codigoL);
 
         codigoTF = new JTextField();
         codigoTF.setBounds(250, 100, 150, 30);
+        codigoTF.setFont(paraLetras);
         add(codigoTF);
 
         eliminarBtn = new JButton("Eliminar Evento");
         eliminarBtn.setBounds(170, 200, 150, 50);
+        eliminarBtn.setFont(paraLetras);
+        eliminarBtn.setBackground(Color.decode("#EAE9D3"));
+        eliminarBtn.setForeground(Color.black);
         add(eliminarBtn);
 
         Volver = new JButton("Volver");
         Volver.setBounds(170, 300, 150, 50);
+        Volver.setFont(paraLetras);
+        Volver.setBackground(Color.decode("#EAE9D3"));
+        Volver.setForeground(Color.black);
         add(Volver);
 
         Volver.addActionListener(new ActionListener() {
