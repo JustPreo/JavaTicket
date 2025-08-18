@@ -226,6 +226,7 @@ public class EditarEvento extends JFrame {
             nombreEquipo1TF = new JTextField(((Deportivo) evento).getNombreEquipo1());
             nombreEquipo1TF.setBounds(320, 10, 120, 25);
             nombreEquipo1TF.setFont(paraLetras);
+            nombreEquipo1TF.setEnabled(false);
             panelExtra.add(nombreEquipo1TF);
 
             JLabel eq2L = new JLabel("Equipo 2:");
@@ -236,6 +237,7 @@ public class EditarEvento extends JFrame {
             nombreEquipo2TF = new JTextField(((Deportivo) evento).getNombreEquipo2());
             nombreEquipo2TF.setBounds(320, 40, 120, 25);
             nombreEquipo2TF.setFont(paraLetras);
+            nombreEquipo2TF.setEnabled(false);
             panelExtra.add(nombreEquipo2TF);
 
             modeloEquipo1 = new DefaultTableModel(new Object[]{"Jugadores Equipo 1"}, 0);
