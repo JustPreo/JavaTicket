@@ -35,6 +35,12 @@ public final class ManejoDeUsuarios {
     }
 
     public boolean crearUsuario(String nombre, String username, String password, int edad, String tipoUsuario) {
+        if (edad < 0 && edad > 100)
+        {
+        JOptionPane.showMessageDialog(null, "Edad invalidad","Error",JOptionPane.ERROR_MESSAGE);
+        return false;
+        }
+        
         if (verificarContra(password) && verificarUsername(username)) {
             UsuarioTemplate nuevoUsuario = null;
 
