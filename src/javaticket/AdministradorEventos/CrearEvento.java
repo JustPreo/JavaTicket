@@ -166,6 +166,9 @@ public class CrearEvento extends JFrame {
         crear.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 crearEvento();
+                AdministrarEventos menu = new AdministrarEventos(manejo, eventos);
+                menu.setVisible(true);
+                dispose();
             }
         });
     }

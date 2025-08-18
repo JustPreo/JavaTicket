@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javaticket.AdministradorReportes.AdministradorReportes;
 import javaticket.AdministradorUsuarios.AdministrarUsuarios;
+import javaticket.Usuarios.Contenidos;
 import javaticket.Usuarios.Limitado;
 import javax.swing.*;
 import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
@@ -81,7 +82,7 @@ public class MenuPrincipal extends JFrame {
 
         Usuarios.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if (manejo.getUser() instanceof Limitado) {
+                if (manejo.getUser() instanceof Limitado || manejo.getUser() instanceof Contenidos) {
                     JOptionPane.showMessageDialog(null, "No puedes editar usuarios!");
                 } else {
                     new AdministrarUsuarios(manejo, eventos).setVisible(true);

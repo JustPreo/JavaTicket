@@ -119,14 +119,14 @@ public final class ManejoDeUsuarios {
 
     public boolean eliminarUsuario(String username) {
         UsuarioTemplate u = buscarU(username);
-        if (u != null && !(u instanceof Administrador)) {
+        if (u != null && !(u.getUserame().equalsIgnoreCase(getUser().getUserame()))) { //No se si poner lo de administrador , supongo que si se pueden borrar?
             usuarios.remove(u);
             //Osea , esto remueve directamente el objeto sin necesidad de tener el index
             return true;
         }
 
-        if (u != null & u instanceof Administrador) {
-            JOptionPane.showMessageDialog(null, "No se pueden borrar administradores", "Error", JOptionPane.ERROR_MESSAGE);
+        if (u != null & u.getUserame().equalsIgnoreCase(getUser().getUserame())) {
+            //JOptionPane.showMessageDialog(null, "No se puede borrar el usuario logeado", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             JOptionPane.showMessageDialog(null, "No se encontro un usuario con ese username", "Error", JOptionPane.ERROR_MESSAGE);
         }

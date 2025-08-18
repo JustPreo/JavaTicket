@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package javaticket.AdministradorReportes;
 
 import javaticket.Categorias.*;
@@ -13,9 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import javaticket.MenuPrincipal;
 
-public class EventosFuturo extends JFrame {
+public class EventosRealizados extends JFrame {
 
     private ManejoDeEventos eventos;
     private ManejoDeUsuarios manejo;
@@ -24,12 +19,12 @@ public class EventosFuturo extends JFrame {
     private JTextArea lblEstadisticas;
     private JButton Volver;
 
-    public EventosFuturo(ManejoDeUsuarios manejo, ManejoDeEventos eventos) {
+    public EventosRealizados(ManejoDeUsuarios manejo, ManejoDeEventos eventos) {
         this.eventos = eventos;
         this.manejo = manejo;
 
         setSize(800, 650);
-        setTitle("Eventos Futuros");
+        setTitle("Eventos Realizados");
         setResizable(false);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -40,14 +35,15 @@ public class EventosFuturo extends JFrame {
         // Tabla
         String[] columnas = {"CODIGO", "TIPO", "TITULO", "FECHA", "MONTO"};
         modeloTabla = new DefaultTableModel(columnas, 0) {
-            public boolean isCeldaEditable(int row, int column) {
+            public boolean isCellEditable(int row, int column) {
                 return false;
             }
-        };//Casi que copypaste de lo que hice en editarEvento
+        };
         tablaEventos = new JTable(modeloTabla);
         JScrollPane scroll = new JScrollPane(tablaEventos);
         scroll.setBounds(50, 50, 700, 350);
         add(scroll);
+
         lblEstadisticas = new JTextArea();
         lblEstadisticas.setBounds(50, 420, 700, 150);
         lblEstadisticas.setFont(paraLetras);
@@ -58,15 +54,15 @@ public class EventosFuturo extends JFrame {
         lblEstadisticas.setWrapStyleWord(true);
         add(lblEstadisticas);
 
-        cargarEventosFuturos();
-        
+        cargarEventosRealizados();
+
         Volver = new JButton("Volver");
         Volver.setBounds(325, 580, 150, 40);
         Volver.setFont(paraLetras);
         Volver.setBackground(Color.decode("#EAE9D3"));
         Volver.setForeground(Color.black);
         add(Volver);
-        
+
         Volver.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 AdministradorReportes menu = new AdministradorReportes(manejo,eventos);
@@ -76,44 +72,44 @@ public class EventosFuturo extends JFrame {
         });
     }
 
-    private void cargarEventosFuturos() {
+    private void cargarEventosRealizados() {
         modeloTabla.setRowCount(0); // Limpiar tabla
 
-        ArrayList<categorias> futurama = new ArrayList<>();
-        Calendar hoy = Calendar.getInstance();
-        hoy.set(Calendar.HOUR_OF_DAY, 0);
-        hoy.set(Calendar.MINUTE, 0);
-        hoy.set(Calendar.SECOND, 0);
-        hoy.set(Calendar.MILLISECOND, 0);
-
+        ArrayList<categorias> realizados = new ArrayList<>();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
         for (categorias e : eventos.eventos) {
-            if (!e.isCancelado()) {
+            if (!e.isCancelado() && e.isRealizado()) {
                 try {
                     Date fechaEvento = sdf.parse(e.getFecha());
-                    if (fechaEvento.after(hoy.getTime()) && !e.isRealizado()) {
-                        futurama.add(e);
-                    }
+                    realizados.add(e);
                 } catch (Exception ex) {
                     ex.printStackTrace();
                 }
             }
         }
-        int Deportivos = 0, Religiosos = 0, Musicales = 0;
-        double DeportivosTC = 0, ReligiososTC = 0, MusicalesTC = 0;//TotalCosto
 
-        for (categorias evento : futurama) {
-            String tipo = "";
-            if (evento instanceof Deportivo) {
-                tipo = "DEPORTIVO";
-            } else if (evento instanceof Religioso) {
-                tipo = "RELIGIOSO";
-            } else if (evento instanceof Musical) {
-                tipo = "MUSICAL";
+        // Ordenar del más reciente al más antiguo
+        realizados.sort((a, b) -> {
+            try {
+                Date fechaA = sdf.parse(a.getFecha());
+                Date fechaB = sdf.parse(b.getFecha());
+                return fechaB.compareTo(fechaA);
+            } catch (Exception ex) {
+                return 0;
             }
+        });
 
+        int Deportivos = 0, Religiosos = 0, Musicales = 0;
+        double DeportivosTC = 0, ReligiososTC = 0, MusicalesTC = 0;
+
+        for (categorias evento : realizados) {
+            String tipo = "";
+            if (evento instanceof Deportivo) tipo = "DEPORTIVO";
+            else if (evento instanceof Religioso) tipo = "RELIGIOSO";
+            else if (evento instanceof Musical) tipo = "MUSICAL";
             double costo = evento.getCosto();
+            
 
             switch (tipo) {
                 case "DEPORTIVO":
@@ -122,26 +118,26 @@ public class EventosFuturo extends JFrame {
                     break;
                 case "RELIGIOSO":
                     Religiosos++;
-                    ReligiososTC += evento.getCosto()+(2000);
+                    ReligiososTC += evento.getCosto() + 2000;
                     costo += (2000);
+                    
                     break;
                 case "MUSICAL":
                     Musicales++;
-                    MusicalesTC += evento.getCosto()+(evento.getCosto()*0.3);
+                    MusicalesTC += evento.getCosto() + (evento.getCosto() * 0.3);
                     costo += (evento.getCosto() * 0.3);
                     break;
             }
             
             modeloTabla.addRow(new Object[]{
-                evento.getCodigo(), tipo, evento.getTitulo(), evento.getFecha(), String.format("%.2f", costo)
+                evento.getCodigo(), tipo, evento.getTitulo(), evento.getFecha(), String.format("%.2f",costo)
             });
         }
 
         String textoEstadisticas = "Deportivos: " + Deportivos + " eventos | Monto total: Lps." + String.format("%.2f", DeportivosTC)
                 + "\nReligiosos: " + Religiosos + " eventos | Monto total: Lps." + String.format("%.2f", ReligiososTC)
-                + " \nMusicales: " + Musicales + " eventos | Monto total: Lps." + String.format("%.2f", MusicalesTC);
+                + "\nMusicales: " + Musicales + " eventos | Monto total: Lps." + String.format("%.2f", MusicalesTC);
 
         lblEstadisticas.setText(textoEstadisticas);
     }
-
 }

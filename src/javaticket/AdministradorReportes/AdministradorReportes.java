@@ -35,44 +35,44 @@ public class AdministradorReportes extends JFrame {
         setLayout(null);
         getContentPane().setBackground(Color.decode("#394B66"));
 
-        Font paraLetras = new Font("Roboto", Font.BOLD, 16);
+        Font paraLetras = new Font("Roboto", Font.BOLD, 15);
         Realizados = new JButton("Eventos Realizados");
-        Realizados.setBounds(165, 50, 175, 50);
+        Realizados.setBounds(165, 30, 175, 50);
         Realizados.setFont(paraLetras);
         Realizados.setBackground(Color.decode("#EAE9D3"));
         Realizados.setForeground(Color.black);
         add(Realizados);
 
         Futuros = new JButton("Eventos Futuros");
-        Futuros.setBounds(165, 125, 175, 50);
+        Futuros.setBounds(165, 105, 175, 50);
         Futuros.setFont(paraLetras);
         Futuros.setBackground(Color.decode("#EAE9D3"));
         Futuros.setForeground(Color.black);
         add(Futuros);
 
         Cancelados = new JButton("Eventos Cancelados");
-        Cancelados.setBounds(165, 200, 175, 50);
+        Cancelados.setBounds(165, 180, 175, 50);
         Cancelados.setFont(paraLetras);
         Cancelados.setBackground(Color.decode("#EAE9D3"));
         Cancelados.setForeground(Color.black);
         add(Cancelados);
 
         Fecha = new JButton("Eventos por fecha");
-        Fecha.setBounds(165, 275, 175, 50);
+        Fecha.setBounds(165, 255, 175, 50);
         Fecha.setFont(paraLetras);
         Fecha.setBackground(Color.decode("#EAE9D3"));
         Fecha.setForeground(Color.black);
         add(Fecha);
 
         Perfil = new JButton("Perfil Usuario");
-        Perfil.setBounds(165, 350, 175, 50);
+        Perfil.setBounds(165, 330, 175, 50);
         Perfil.setFont(paraLetras);
         Perfil.setBackground(Color.decode("#EAE9D3"));
         Perfil.setForeground(Color.black);
         add(Perfil);
 
         Volver = new JButton("Volver");
-        Volver.setBounds(165, 425, 175, 50);
+        Volver.setBounds(165, 405, 175, 50);
 
         Volver.setFont(paraLetras);
         Volver.setBackground(Color.decode("#EAE9D3"));
@@ -82,6 +82,8 @@ public class AdministradorReportes extends JFrame {
         //Action Listeners
         Realizados.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                new EventosRealizados(manejo, eventos).setVisible(true);
+                dispose();
 
             }
         });
@@ -97,18 +99,24 @@ public class AdministradorReportes extends JFrame {
 
         Cancelados.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                new EventosCancelados(manejo, eventos).setVisible(true);
+                dispose();
+                
             }
         });
 
         Fecha.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                new IngresoPorFecha(manejo, eventos).setVisible(true);
+                dispose();
 
             }
         });
 
         Perfil.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                new verPerfil(manejo, eventos).setVisible(true);
+                dispose();
 
             }
         });

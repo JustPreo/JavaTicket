@@ -21,6 +21,7 @@ public class JavaTicket {
         ManejoDeEventos eventos = new ManejoDeEventos();
         Login login = new Login(manejo,eventos);
         login.setVisible(true);
+        //SREK
         
         
         //Logica para abrir la ventana de inicio

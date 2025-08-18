@@ -21,27 +21,36 @@ public final class ManejoDeEventos {
 
     }
 
-    public boolean revisarFechas(String fecha) {
-        for (categorias evento : eventos) {
-            if (evento.getFecha().equals(fecha) && !evento.isCancelado()) {
-                JOptionPane.showMessageDialog(null, "ERROR:Otro evento tiene esta fecha");
-                return false;
-            }
-
-        }
-
-        return true;
+    public final boolean revisarFechas(String fecha) {
+        return revisarFechasRec(fecha, 0);
     }
 
-    public boolean revisarCodigo(int codigo) {
-        for (categorias evento : eventos) {
-            if (evento.getCodigo() == codigo) {
-                JOptionPane.showMessageDialog(null, "ERROR:Otro evento tiene este codigo");
-                return false;
-            }
-
+    private boolean revisarFechasRec(String fecha, int index) {
+        if (index >= eventos.size()) {
+            return true;
         }
-        return true;
+        categorias evento = eventos.get(index);
+        if (evento.getFecha().equals(fecha) && !evento.isCancelado()) {
+            JOptionPane.showMessageDialog(null, "ERROR:Otro evento tiene esta fecha");
+            return false;
+        }
+        return revisarFechasRec(fecha, index + 1);
+    }
+
+    public final boolean revisarCodigo(int codigo) {
+        return revisarCodigoRec(codigo, 0);
+    }
+
+    private boolean revisarCodigoRec(int codigo, int index) {
+        if (index >= eventos.size()) {
+            return true;
+        }
+        categorias evento = eventos.get(index);
+        if (evento.getCodigo() == codigo) {
+            JOptionPane.showMessageDialog(null, "ERROR:Otro evento tiene este codigo");
+            return false;
+        }
+        return revisarCodigoRec(codigo, index + 1);
     }
 
     public boolean crearEvento(categorias Evento) {
@@ -50,25 +59,29 @@ public final class ManejoDeEventos {
             eventos.add(Evento);
             return true;
         }
-        if (Evento.getCosto() <= 0)
-        {
-        JOptionPane.showMessageDialog(null, "ERROR:No puedes tener costos negativos o iguales a 0");
-        
+        if (Evento.getCosto() <= 0) {
+            JOptionPane.showMessageDialog(null, "ERROR:No puedes tener costos negativos o iguales a 0");
+
         }
         return false;
     }
 
     public categorias buscarEvento(int codigo) {
-        for (categorias evento : eventos) {
-            if (codigo == evento.getCodigo()) {
-                return evento;
-
-            }
-        }
-        return null;
+        return buscarEventoRec(codigo, 0);
     }
 
-    public boolean estaRealizado(categorias evento) {
+    private categorias buscarEventoRec(int codigo, int index) {
+        if (index >= eventos.size()) {
+            return null;
+        }
+        categorias evento = eventos.get(index);
+        if (evento.getCodigo() == codigo) {
+            return evento;
+        }
+        return buscarEventoRec(codigo, index + 1);
+    }
+
+    public final boolean estaRealizado(categorias evento) {
         return evento.isRealizado();
     }
 

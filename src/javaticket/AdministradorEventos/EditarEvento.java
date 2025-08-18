@@ -145,6 +145,9 @@ public class EditarEvento extends JFrame {
         guardarCambios.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 editar();
+                AdministrarEventos menu = new AdministrarEventos(manejo, eventos);
+                menu.setVisible(true);
+                dispose();
             }
         });
 

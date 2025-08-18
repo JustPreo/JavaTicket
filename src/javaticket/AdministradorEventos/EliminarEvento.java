@@ -14,6 +14,8 @@ import javaticket.Categorias.Religioso;
 import static javaticket.Manejo.ManejoDeUsuarios.userLogged;
 import javaticket.Usuarios.Administrador;
 import javaticket.Usuarios.Contenidos;
+import javaticket.Usuarios.Limitado;
+import javaticket.Usuarios.UsuarioTemplate;
 
 public class EliminarEvento extends JFrame {
 
@@ -76,6 +78,9 @@ public class EliminarEvento extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 eliminarEvento();
+                AdministrarEventos menu = new AdministrarEventos(manejo, eventos);
+                menu.setVisible(true);
+                dispose();
             }
         });
     }
@@ -93,6 +98,20 @@ public class EliminarEvento extends JFrame {
         if (evento.isRealizado()) {
             JOptionPane.showMessageDialog(this, "El evento ya se realizo, no puede ser cancelado.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
+        }
+        boolean esCreador = false;
+        UsuarioTemplate usuarioActual = manejo.getUser();
+        if (usuarioActual instanceof Administrador) {
+                esCreador = ((Administrador) usuarioActual).creador(evento.getCodigo());
+                
+            } else if (usuarioActual instanceof Contenidos) {
+                esCreador = ((Contenidos) usuarioActual).creador(evento.getCodigo());
+            } 
+        
+        if (!esCreador)
+        {
+            JOptionPane.showMessageDialog(null, "No puedes eliminar eventos que no hayas creado");
+        return;
         }
 
         // comparar fecha

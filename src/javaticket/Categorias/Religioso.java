@@ -38,7 +38,6 @@ public class Religioso extends categorias {
     }
     
     public double calcularMulta() {
-        // Para eventos religiosos no se cobra multa, siempre 0
         return 0.0;
     }
 }

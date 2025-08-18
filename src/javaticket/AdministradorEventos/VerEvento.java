@@ -240,7 +240,7 @@ public class VerEvento extends JFrame {
             componentesExtra.add(scroll2);
 
         } else if (evento instanceof Musical) {
-            costo.setText(Double.toString((evento.getCosto())*(evento.getCosto()*0.3)));
+            costo.setText(Double.toString((evento.getCosto())+(((Musical) evento).getSeguroGrama())));
             String[] tipos = {"Pop", "Rock", "Rap", "Clasica", "Reggaeton", "Otro"};
             c2 = new JComboBox<>(tipos);
             c2.setBounds(20, 200, 150, 25);
@@ -264,7 +264,7 @@ public class VerEvento extends JFrame {
             componentesExtra.add(scroll);
 
         } else if (evento instanceof Religioso) {
-            costo.setText(Double.toString((evento.getCosto())+(2000)));
+            costo.setText(Double.toString((evento.getCosto())+(((Religioso) evento).getSeguroFijo())));
             JLabel l = new JLabel("Convertidos:");
             l.setFont(paraLetras);
             l.setForeground(Color.decode("#EAE9D3"));

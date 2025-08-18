@@ -98,6 +98,12 @@ public class EliminarUsuario extends JFrame {
             );
 
             if (confirmacion == JOptionPane.YES_OPTION) {
+                if (username.equalsIgnoreCase(manejo.getUser().getUserame()))
+                {
+                JOptionPane.showMessageDialog(null, "No puedes eliminar el usuario que esta logeado", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+                }
+                
                 if (manejo.eliminarUsuario(username)) {
                     JOptionPane.showMessageDialog(null, "Usuario eliminado correctamente", "Éxito", JOptionPane.INFORMATION_MESSAGE);
                     limpiarCampos();

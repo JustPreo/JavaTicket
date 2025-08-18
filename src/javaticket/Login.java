@@ -14,7 +14,7 @@ import javax.swing.*;
 
 /**
  *
- * @author user
+ * @author LEBRON JAMEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEES
  */
 public class Login extends JFrame {
 
