@@ -8,7 +8,7 @@ import javaticket.Manejo.ManejoDeUsuarios;
 import javaticket.Manejo.ManejoDeEventos;
 
 /**
- *
+ *sadmadmna
  * @author user
  */
 public class JavaTicket {

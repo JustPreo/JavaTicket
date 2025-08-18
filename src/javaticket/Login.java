@@ -92,10 +92,7 @@ public class Login extends JFrame {
                     MenuPrincipal menu = new MenuPrincipal(manejo,eventos);
                     dispose();
                     }
-                    else
-                    {
-                    JOptionPane.showMessageDialog(null, "Acceso denegado");
-                    } 
+                    
                 } else if (!revisar()) {
                     JOptionPane.showMessageDialog(null, "ERROR:Ocupas llenar todos los datos necesarios");
                 }

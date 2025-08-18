@@ -244,7 +244,9 @@ public class EditarEvento extends JFrame {
             }
             tablaEquipo1 = new JTable(modeloEquipo1);
             JScrollPane scroll1 = new JScrollPane(tablaEquipo1);
-            scroll1.setBounds(20, 80, 200, 150);
+            tablaEquipo1.setFont(paraLetras);
+            scroll1.setBounds(60, 80, 200, 150);
+            tablaEquipo1.getTableHeader().setReorderingAllowed(false); // para que no se muevan las celdas
             panelExtra.add(scroll1);
 
             JButton addE1 = new JButton("Añadir");
@@ -271,8 +273,10 @@ public class EditarEvento extends JFrame {
                 modeloEquipo2.addRow(new Object[]{j});
             }
             tablaEquipo2 = new JTable(modeloEquipo2);
+            tablaEquipo2.getTableHeader().setReorderingAllowed(false); // para que no se muevan las celdas
+            tablaEquipo2.setFont(paraLetras);
             JScrollPane scroll2 = new JScrollPane(tablaEquipo2);
-            scroll2.setBounds(300, 80, 200, 150);
+            scroll2.setBounds(340, 80, 200, 150);
             panelExtra.add(scroll2);
 
             JButton addE2 = new JButton("Añadir");
@@ -308,7 +312,9 @@ public class EditarEvento extends JFrame {
             }
             tablaMontaje = new JTable(modeloMontaje);
             JScrollPane scroll = new JScrollPane(tablaMontaje);
+            tablaMontaje.setFont(paraLetras);
             scroll.setBounds(20, 50, 300, 150);
+            tablaMontaje.getTableHeader().setReorderingAllowed(false); // para que no se muevan las celdas
             panelExtra.add(scroll);
 
             JButton add = new JButton("Añadir persona");

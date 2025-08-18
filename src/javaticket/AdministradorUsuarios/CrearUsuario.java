@@ -28,7 +28,7 @@ public class CrearUsuario extends JFrame {
 
     private JLabel nombreL, usernameL, passwordL, edadL, tipoL;
     private JTextField nombreTF, usernameTF, edadTF;
-    private JPasswordField passwordPF;
+    private JTextField passwordPF;
     private JComboBox<TipoUsuario> tipoCB;
     private JButton crearBtn, volverBtn;
     ManejoDeUsuarios manejo;
@@ -88,7 +88,7 @@ public class CrearUsuario extends JFrame {
         usernameTF.setFont(paraLetras);
         add(usernameTF);
 
-        passwordPF = new JPasswordField();
+        passwordPF = new JTextField();
         passwordPF.setBounds(30, 175, 150, 30);
         passwordPF.setFont(paraLetras);
         add(passwordPF);
@@ -151,7 +151,7 @@ public class CrearUsuario extends JFrame {
         try {
             String nombre = nombreTF.getText();
             String username = usernameTF.getText();
-            String password = new String(passwordPF.getPassword());
+            String password = passwordPF.getText();
             int edad = Integer.parseInt(edadTF.getText());
             TipoUsuario tipo = (TipoUsuario) tipoCB.getSelectedItem();
             String tipoStr = tipo.toString();

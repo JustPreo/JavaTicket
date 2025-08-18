@@ -47,11 +47,13 @@ public class EventosFuturo extends JFrame {
         tablaEventos = new JTable(modeloTabla);
         JScrollPane scroll = new JScrollPane(tablaEventos);
         scroll.setBounds(50, 50, 700, 350);
+        tablaEventos.getTableHeader().setReorderingAllowed(false); // para que no se muevan las celdas
         add(scroll);
         lblEstadisticas = new JTextArea();
         lblEstadisticas.setBounds(50, 420, 700, 150);
         lblEstadisticas.setFont(paraLetras);
         lblEstadisticas.setForeground(Color.BLACK);
+        lblEstadisticas.setForeground(Color.decode("#EAE9D3"));
         lblEstadisticas.setEditable(false);
         lblEstadisticas.setBackground(getContentPane().getBackground()); 
         lblEstadisticas.setLineWrap(true);
@@ -61,7 +63,7 @@ public class EventosFuturo extends JFrame {
         cargarEventosFuturos();
         
         Volver = new JButton("Volver");
-        Volver.setBounds(325, 580, 150, 40);
+        Volver.setBounds(325, 570, 150, 40);
         Volver.setFont(paraLetras);
         Volver.setBackground(Color.decode("#EAE9D3"));
         Volver.setForeground(Color.black);
@@ -137,9 +139,9 @@ public class EventosFuturo extends JFrame {
             });
         }
 
-        String textoEstadisticas = "Deportivos: " + Deportivos + " eventos | Monto total: Lps." + String.format("%.2f", DeportivosTC)
-                + "\nReligiosos: " + Religiosos + " eventos | Monto total: Lps." + String.format("%.2f", ReligiososTC)
-                + " \nMusicales: " + Musicales + " eventos | Monto total: Lps." + String.format("%.2f", MusicalesTC);
+        String textoEstadisticas = "Cantidad Deportivos: " + Deportivos + " eventos | Total: Lps." + String.format("%.2f", DeportivosTC)
+                + "\nCantidad Religiosos: " + Religiosos + " eventos | Total: Lps." + String.format("%.2f", ReligiososTC)
+                + " \nCantidad Musicales: " + Musicales + " eventos | Total: Lps." + String.format("%.2f", MusicalesTC);
 
         lblEstadisticas.setText(textoEstadisticas);
     }

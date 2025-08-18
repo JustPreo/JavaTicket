@@ -221,6 +221,7 @@ public class VerEvento extends JFrame {
             JScrollPane scroll1 = new JScrollPane(tablaEquipo1);
             scroll1.setBounds(20, 240, 200, 150);
             tablaEquipo1.setFont(paraLetras);
+            tablaEquipo1.getTableHeader().setReorderingAllowed(false); // para que no se muevan las celdas
             add(scroll1);
             componentesExtra.add(scroll1);
 
@@ -236,6 +237,7 @@ public class VerEvento extends JFrame {
             JScrollPane scroll2 = new JScrollPane(tablaEquipo2);
             scroll2.setBounds(300, 240, 200, 150);
             tablaEquipo2.setFont(paraLetras);
+            tablaEquipo2.getTableHeader().setReorderingAllowed(false); // para que no se muevan las celdas
             add(scroll2);
             componentesExtra.add(scroll2);
 
@@ -260,6 +262,7 @@ public class VerEvento extends JFrame {
             tablaMontaje = new JTable(modeloMontaje);
             JScrollPane scroll = new JScrollPane(tablaMontaje);
             scroll.setBounds(20, 240, 300, 150);
+             tablaMontaje.getTableHeader().setReorderingAllowed(false); // para que no se muevan las celdas
             add(scroll);
             componentesExtra.add(scroll);
 

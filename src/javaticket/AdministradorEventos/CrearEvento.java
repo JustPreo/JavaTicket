@@ -166,9 +166,7 @@ public class CrearEvento extends JFrame {
         crear.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 crearEvento();
-                AdministrarEventos menu = new AdministrarEventos(manejo, eventos);
-                menu.setVisible(true);
-                dispose();
+
             }
         });
     }
@@ -252,11 +250,15 @@ public class CrearEvento extends JFrame {
             String fechaStr = new SimpleDateFormat("yyyy-MM-dd").format(fechaS.getDate());
             double costoD = parseDouble(costo.getText());
             int cantidadP = parseInt(cantidad.getText());
-            
-            if (cantidadP < 0)
-            {
-                JOptionPane.showMessageDialog(null, "No puedes tener cantidad de personas negativas","Error",JOptionPane.ERROR_MESSAGE);
-            return false;
+
+            if (cantidadP < 0) {
+                JOptionPane.showMessageDialog(null, "No puedes tener cantidad de personas negativas", "Error", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+
+            if (cod <= 0) {
+                JOptionPane.showMessageDialog(null, "Codigo Invalido", "Error", JOptionPane.ERROR_MESSAGE);
+                return false;
             }
 
             categorias evento = null;
@@ -276,7 +278,7 @@ public class CrearEvento extends JFrame {
                         return false;
                     }
                     evento = new Deportivo(cod, nom, desc, fechaStr, costoD, cantidadP, subtipo,
-                                           equipo1.getText(), equipo2.getText());
+                            equipo1.getText(), equipo2.getText());
                     break;
                 case "Musical":
                     if (cantidadP > 25000) {
@@ -327,6 +329,9 @@ public class CrearEvento extends JFrame {
                 JOptionPane.showMessageDialog(this, "Evento creado exitosamente");
                 manejo.agregarArray(evento);
                 limpiarCampos();
+                AdministrarEventos menu = new AdministrarEventos(manejo, eventos);
+                menu.setVisible(true);
+                dispose();
                 return true;
             } else if (esHoy) {
                 JOptionPane.showMessageDialog(this, "No puedes elegir la fecha de hoy!");
@@ -379,8 +384,12 @@ public class CrearEvento extends JFrame {
         cantidad.setText("");
         fechaS.setDate(null);
         c1.setSelectedIndex(0);
-        if (equipo1 != null) equipo1.setText("");
-        if (equipo2 != null) equipo2.setText("");
+        if (equipo1 != null) {
+            equipo1.setText("");
+        }
+        if (equipo2 != null) {
+            equipo2.setText("");
+        }
         eliminarCombo();
     }
 }

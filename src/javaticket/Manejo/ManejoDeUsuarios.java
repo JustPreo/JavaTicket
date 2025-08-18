@@ -25,7 +25,7 @@ public final class ManejoDeUsuarios {
 
     public ManejoDeUsuarios() {
         usuarios = new ArrayList<>();
-        usuarios.add(new Administrador("admin", "admin", "supersecreto", 69));
+        usuarios.add(new Administrador("admin", "admin", "supersecreto", 99));
     }
 
     public enum TipoUsuario {
@@ -68,9 +68,15 @@ public final class ManejoDeUsuarios {
         if (contra.length() >= 8
                 && contra.matches(".*\\d.*")
                 && contra.matches(".*[~`!@#$%^&*()\\-+={}\\[\\]|\\\\:;\"'<>./?].*")
-                && contra.matches(".*[A-Z].*")) {
+                && contra.matches(".*[A-Z].*") && !contra.contains(" ")) {
             System.out.println("Contra valida");
             return true;
+        }
+        
+        if (contra.contains(" "))
+        {
+        JOptionPane.showMessageDialog(null, "Contrasena no puede contener espacios!");
+        return false;
         }
         JOptionPane.showMessageDialog(null, "Contrasena requiere al menos:" + "\n 8 Caracteres , Simbolos , 1 Mayuscula , 1 Minuscula");
         return false;
@@ -94,6 +100,15 @@ public final class ManejoDeUsuarios {
                 userLogged = u;
                 return true;
             }
+            else 
+            {
+            JOptionPane.showMessageDialog(null, "Contrasena Incorrecta");
+            }
+        }
+        
+        if (u == null)
+        {
+        JOptionPane.showMessageDialog(null, "Usuario no existe");
         }
         return false;
     }
@@ -125,9 +140,9 @@ public final class ManejoDeUsuarios {
             return true;
         }
 
-        if (u != null & u.getUserame().equalsIgnoreCase(getUser().getUserame())) {
-            //JOptionPane.showMessageDialog(null, "No se puede borrar el usuario logeado", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
+        if (u != null & u.getUserame().equalsIgnoreCase("admin")) {
+            JOptionPane.showMessageDialog(null, "No se puede borrar ADMIN", "Error", JOptionPane.ERROR_MESSAGE);
+        }else {
             JOptionPane.showMessageDialog(null, "No se encontro un usuario con ese username", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
@@ -147,6 +162,7 @@ public final class ManejoDeUsuarios {
             JOptionPane.showMessageDialog(null, "Usuario editado correctamente");
             return true;
         }
+        JOptionPane.showMessageDialog(null, "Error al editar usuario");
         return false;
     
     }

@@ -109,6 +109,7 @@ public class verPerfil extends JFrame {
         tablaEventos = new JTable(modeloTabla);
         JScrollPane scroll = new JScrollPane(tablaEventos);
         scroll.setBounds(30, 200, 620, 300);
+        tablaEventos.getTableHeader().setReorderingAllowed(false); // para que no se muevan las celdas
         add(scroll);
 
         cargarEventosUsuario();

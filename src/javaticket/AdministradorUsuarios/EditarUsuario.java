@@ -24,7 +24,7 @@ public class EditarUsuario extends JFrame {
 
     private JLabel buscarL, nombreL, usernameL, passwordL, edadL, tipoL;
     private JTextField buscarTF, nombreTF, usernameTF, edadTF;
-    private JPasswordField passwordPF;
+    private JTextField passwordPF;
     private JComboBox<TipoUsuario> tipoCB;
     private JButton buscarBtn, guardarBtn, volverBtn;
     ManejoDeUsuarios manejo;
@@ -41,8 +41,8 @@ public class EditarUsuario extends JFrame {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(null);
-         getContentPane().setBackground(Color.decode("#394B66"));
-         Font paraLetras = new Font("Roboto", Font.BOLD, 16);
+        getContentPane().setBackground(Color.decode("#394B66"));
+        Font paraLetras = new Font("Roboto", Font.BOLD, 16);
 
         // Labels
         buscarL = new JLabel("Buscar por Username:");
@@ -98,7 +98,7 @@ public class EditarUsuario extends JFrame {
         usernameTF.setEditable(false);
         add(usernameTF);
 
-        passwordPF = new JPasswordField();
+        passwordPF = new JTextField();
         passwordPF.setBounds(180, 150, 200, 25);
         passwordPF.setFont(paraLetras);
         add(passwordPF);
@@ -169,6 +169,11 @@ public class EditarUsuario extends JFrame {
             return;
         }
 
+        if (u.getUserame().equals("admin")) {
+            JOptionPane.showMessageDialog(this, "No puedes editar ADMIN", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         usuarioActual = u;
 
         nombreTF.setText(u.getNombre());
@@ -203,10 +208,13 @@ public class EditarUsuario extends JFrame {
         try {
 
             String nuevoNombre = nombreTF.getText();
-            String nuevaPassword = new String(passwordPF.getPassword());
+            String nuevaPassword = passwordPF.getText();
             int nuevaEdad = Integer.parseInt(edadTF.getText());
 
-            manejo.editarUsuario(nuevoNombre, nuevaPassword, nuevaEdad, usuarioActual.getUserame());
+            if (manejo.editarUsuario(nuevoNombre, nuevaPassword, nuevaEdad, usuarioActual.getUserame())) {
+                new AdministrarUsuarios(manejo, eventos).setVisible(true);
+                dispose();
+            }
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Datos inválidos", "Error", JOptionPane.ERROR_MESSAGE);
